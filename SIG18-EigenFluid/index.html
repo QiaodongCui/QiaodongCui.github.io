@@ -1,0 +1,364 @@
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <title>Scalable Laplacian Eigenfluids</title>
+  </head>
+  <body bgcolor="#FFFFFF" link="#000000" text="#000000" vlink="#000000">
+    <center>
+      <table border="0" cellpadding="0" cellspacing="0" height="100%">
+        <tbody>
+          <tr>
+            <td valign="CENTER">
+              <table border="0" cellpadding="0" cellspacing="0" width="900">
+                <tbody>
+                  <tr>
+                    <td colspan="3">&nbsp; &nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" width="100%">
+                      <font face="Arial" size="+3"> </font>
+                        <p><font face="Arial" size="+3"><b><i>Scalable Laplacian Eigenfluids</i></b></font><br>
+                        <font face="Arial"> <i><b>Proceedings of ACM SIGGRAPH 2018</b></i></font></p><font face="Arial">
+                      </font></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><hr></td>
+                  </tr><tr>
+                  </tr><tr>
+                    <td>
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody><tr>
+                          <td width="100%">
+                            <b>
+                            <font face="Arial"> 
+                            <a href="http://w2.mat.ucsb.edu/qiaodong/"> Qiaodong Cui</a>, University of California, Santa Barbara <br/> 
+                            <a href="http://www.ece.ucsb.edu/~psen/"> Pradeep Sen</a>, University of California, Santa Barbara <br/>
+                            <a href="http://www.tkim.graphics/">Theodore Kim</a>, Pixar Animation Studios <br/>
+                          </font>
+                            </b>
+                          </td>
+                        </tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="3">&nbsp;</td>
+                  </tr><tr>
+                    <td>
+                        <p> 
+                        <a href="./images/representative_image.png"><img src="./images/representative_image_small.png"></a><br>
+                        <br>
+                        <font face="Arial" size="-1"><i><b>Above:</b></i> 
+                        Top row: r = 100, r = 200, r = 1000 basis functions are used. Bottom row: r = 2000, r = 4000, r = 12600 basis functions are used. Previous approaches have only been able to achieve r &asymp; 500, and would have needed 2.25 TB of memory to simulate the r = 12600 case.
+                          </font></p><font face="Arial" size="-1">
+                    </font></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="3">&nbsp; &nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" align="justify" width="75%"> <font face="Arial"> <b>Abstract</b></font>
+                      <p><font face="Arial">
+                        The Laplacian Eigenfunction method for fluid simulation, which we refer to as <i>Eigenfluids</i>, introduced an elegant new way to capture intricate fluid flows with near-zero viscosity. However, the approach does not scale well, as the memory cost grows prohibitively with the number of eigenfunctions. The method also lacks generality, because the dynamics are constrained to a closed box with Dirichlet boundaries, while open, Neumann boundaries are also needed in most practical scenarios. To address these limitations, we present a set of analytic eigenfunctions that supports uniform Neumann and Dirichlet conditions along each domain boundary, and show that by carefully applying the discrete sine and cosine transforms, the storage costs of the eigenfunctions can be made completely negligible. The resulting algorithm is both faster and more memory-efficient than previous approaches, and able to achieve lower viscosities than similar pseudo-spectral methods. We are able to surpass the scalability of the original Laplacian Eigenfunction approach by over two orders of magnitude when simulating rectangular domains. Finally, we show that the formulation allows forward scattering to be directed in a way that is not possible with any other method.
+                        </font> </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">&nbsp; &nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" align="LEFT">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td><img src="./images/paper.png" border="1" width="100"></td>
+                            <td> <font face="Arial"> &nbsp; &nbsp; <a href="ScalableEigenFluid.pdf"><b>Paper</b></a> [PDF, 38 MB] </font> </td>
+                            <td> &nbsp; &nbsp; &nbsp; &nbsp; </td>
+                            <td><img src="./images/video.png" border="1" width="100"></td>
+                              <td>
+                                &nbsp;&nbsp;<font face="Arial"><b><a href="SIG18MainVideo.mp4">Full Video</a></b> [MOV, 259 MB]<br>
+                                &nbsp;&nbsp;&nbsp;(Scroll down for YouTube)
+                                </font>
+                              </td>
+                              <td><img src="./images/video1.png" border="1" width="100"></td>
+                              <td>
+                                &nbsp;&nbsp;<font face="Arial"><b><a href="SIG18SupplVideo.mp4">Additional Video</a></b> [MOV, 156 MB]<br>
+                                &nbsp;&nbsp;&nbsp;(Scroll down for YouTube)
+                                </font>
+                              </td>
+                            </tr>
+                          <tr>
+                            <td><img src="./images/suppl.png" border="1" width="100"></td>
+                            <td> <font face="Arial"> &nbsp; &nbsp; <a href="ScalableEigenFluidSupp.pdf"><b>Supplementary material</b></a> </font> </td>
+                            <td> &nbsp; &nbsp; &nbsp; &nbsp; </td>
+
+                            <td><img src="./images/sourceimg.png" border="1" width="100"></td>
+                            <td> <font face="Arial"> &nbsp; &nbsp; <a href="https://bitbucket.org/cqd123123/eigenfluidrelease/src/release/"><b>Source [bit bucket]</b></a> </font> </td>
+                            
+                            <td><img src="./images/slides.png" border="1" width="100"></td>
+                              <td>
+                                &nbsp;&nbsp;<font face="Arial"> <a href="EigenFluid.pdf"> <b>Slides</b> </a><br>
+                                </font>
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">&nbsp; &nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><hr></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">&nbsp; &nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" align="LEFT">
+                      <font face="Arial"> 
+                        <b>Supplemental Videos:</b>
+                      </font>
+                    </td>
+                  </tr>
+
+
+                   <tr>
+                    <td colspan="3" align="LEFT">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td><img src="./images/paddle.png" border="1" width="120"></td>
+                              <td>
+                                &nbsp;&nbsp;<font face="Arial"><b>Paddle Wheel:</b> (r : rank of the basis. visc: viscosity) </font><br>
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                  <tbody><tr>
+                                    <td>&nbsp; &nbsp; </td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                      <a href="./videos/Paddle_wheel_100.mp4">r = 100, visc=2&middot;10<sup>-4</sup></a><br>
+                                      <a href="./videos/Paddle_wheel_200.mp4">r = 200, visc=2&middot;10<sup>-4</sup></a><br>
+                                      <a href="./videos/Paddle_wheel_1K.mp4">r = 1000, visc=2&middot;10<sup>-4</sup></a><br>
+                                      <a href="./videos/Paddle_wheel_2K.mp4">r = 2000, visc=2&middot;10<sup>-4</sup></a><br>
+                                      <a href="./videos/Paddle_wheel_4K.mp4">r = 4000, visc=2&middot;10<sup>-4</sup></a><br>
+                                      </font>
+                                    </td>
+                                    <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                        <a href="./videos/Paddle_wheel_8K.mp4">r = 8000, visc=2&middot;10<sup>-4</sup></a><br>
+                                        <a href="./videos/paddle_wheel_12600_visc_0.0002.mp4">r = 12600, visc=2&middot;10<sup>-4</sup></a><br>
+                                        <a href="./videos/paddle_wheel_12600_visc_0.00035.mp4">r = 12600, visc=3.5&middot;10<sup>-4</sup></a><br>
+                                        <a href="./videos/paddle_wheel_12600_visc_0.001.mp4">r = 12600, visc=1&middot;10<sup>-3</sup></a><br>
+                                        <a href="./videos/paddle_wheel_12600_visc_0.002.mp4">r = 12600, visc=2&middot;10<sup>-3</sup></a><br>
+                                      </font>
+                                    </td>
+                                    <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                        <a href="./videos/paddle_wheel_12600_visc_0.000.mp4">r = 12600, visc=0 </a><br>
+                                        <a href="./videos/Paddle_90%_discarded.mp4">90% tensor discarded </a><br>
+                                        <a href="./videos/Paddle_99.9%_discarded.mp4">99.9% tensor discarded </a><br>
+                                        <a href="./videos/Paddle_99.99%_discarded.mp4">99.99% tensor discarded </a><br>
+                                        <a href="./videos/Paddle_100%_discarded.mp4">100% tensor discarded </a><br>
+                                      </font>
+                                    </td>
+                                  </tr>
+                                </tbody></table>
+                                
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+
+                    <tr>
+                    <td colspan="3" align="LEFT">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td><img src="./images/collidingSmoke.png" border="1" width="120"></td>
+                              <td>
+                                &nbsp;&nbsp;<font face="Arial"><b>Colliding smoke:</b></font><br>
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                  <tbody><tr>
+                                    <td>&nbsp; &nbsp; </td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                      <a href="./videos/two_phase_D200.mp4">r = 200, visc=2&middot;10<sup>-4</a><br>
+                                      <a href="./videos/two_phase_D3K.mp4">r = 3000, visc=2&middot;10<sup>-4</a><br>
+                                      <a href="./videos/two_phase_D24K.mp4">r = 24000, visc=2&middot;10<sup>-4</a><br>
+                                      </font>
+                                    </td>
+                                    <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                      <a href="./videos/two_phase_0_discard.mp4">%0 tensor discarded</a><br>
+                                      <a href="./videos/two_phase_90_discard.mp4">%90 tensor discarded</a><br>
+                                      <a href="./videos/two_phase_100_discard.mp4">%100 tensor discarded</a><br>
+                                      </font>
+                                    </td>
+                                    <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                      <a href="./videos/two_phase_stam_dct.mp4">Stam with DCT projection</a><br>
+                                      </font>
+                                    </td>
+                                  </tr>
+                                </tbody></table>
+                                
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td colspan="3" align="LEFT">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td><img src="./images/cylinders.png" border="1" width="120"></td>
+                              <td>
+                                &nbsp;&nbsp;<font face="Arial"><b>Thin Dirichlet obstacles:</b></font><br>
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                  <tbody><tr>
+                                    <td>&nbsp; &nbsp; </td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                      <a href="./videos/cylinders_200.mp4">r = 200</a><br>
+                                      <a href="./videos/cylinders_1000.mp4">r = 1000</a><br>
+                                      <a href="./videos/cylinders_7K.mp4">r = 7000</a><br>
+                                      </font>
+                                    </td>
+                                  </tr>
+                                </tbody></table>
+                                
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="3" align="LEFT">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td><img src="./images/ForwardScattering.png" border="1" width="120"></td>
+                              <td>
+                                &nbsp;&nbsp;<font face="Arial"><b>Directable forward scattering:</b></font><br>
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                  <tbody><tr>
+                                    <td>&nbsp; &nbsp; </td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                      <a href="./videos/FwdScattering_default.mp4">Original simulation</a><br>
+                                      <a href="./videos/FwdScattering_0.0003.mp4">Positive function, c = 0.0003</a><br>
+                                      <a href="./videos/FwdScattering_0.0005.mp4">Positive function, c = 0.0005</a><br>
+                                      <a href="./videos/FwdScattering_0.0017.mp4">Positive function, c = 0.0017</a><br>
+                                      <a href="./videos/FwdScattering_0.0034.mp4">Positive function, c = 0.0034</a><br>
+                                      </font>
+                                    </td>
+                                    <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                      <a href="./videos/FwdScattering_neg_0.0005.mp4">Negative function, c = 0.0005</a><br>
+                                      <a href="./videos/FwdScattering_mixed.mp4">Mixed function</a><br>
+                                      </font>
+                                    </td>
+                                  </tr>
+                                </tbody></table>
+                                
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <td colspan="3" align="LEFT">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td><img src="./images/spectral.png" border="1" width="120"></td>
+                              <td>
+                                &nbsp;&nbsp;<font face="Arial"><b>Comparison with spectral methods and a real time demo:</b></font><br>
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                  <tbody><tr>
+                                    <td>&nbsp; &nbsp; </td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                      <a href="./videos/DedalusReference.mp4">Reference spectral solution: 240*240 basis functions</a><br>
+                                      <a href="./videos/DedalusRodour1.mp4">Eigen fluids: 60*60 basis functions</a><br>
+                                      <a href="./videos/DedalusRodDedalus1.mp4">Spectral collocation: 60*60 basis functions</a><br>
+                                      </font>
+                                    </td>
+                                    <td>&nbsp; &nbsp; &nbsp; &nbsp;</td>
+                                    <td valign="TOP">
+                                      <font face="Arial"> 
+                                      <a href="./videos/Interactive_smoke.mp4">Real time demo</a><br>
+                                      </font>
+                                    </td>
+
+                                  </tr>
+                                </tbody></table>
+                                
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="3">&nbsp; &nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      <hr></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      <center>
+                        <iframe width="853" height="480" src="https://www.youtube.com/embed/i4zyZzCedj4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                         </center>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">&nbsp; &nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      <hr></td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="3"> <font ,="" face="Arial" size="2">
+This work was supported by NSF CAREER award IIS-1253948, as well as IIS-1321168 and IIS-1619376. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the National Science Foundation. We acknowledge support from the Center for Scientific Computing from the CNSI, MRL: an NSF MRSEC (DMR-1720256).
+                  </font></td></tr>
+                  <tr>
+                    <td colspan="3">
+                      <hr></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" valign="MIDDLE"> <a href="http://www.mat.ucsb.edu/"><img src="./images/ucsb_header.jpg" border="0" height="60"></a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </center>
+  
+
+</body></html>

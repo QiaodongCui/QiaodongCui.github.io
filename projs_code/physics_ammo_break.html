@@ -1,0 +1,32 @@
+<html lang="en">
+	<head>
+		<title>Convex object breaking example</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				color: #333;
+			}
+		</style>
+	</head>
+	<body>
+
+	<div id="info">Physics threejs demo with convex objects breaking in real time<br />Press mouse to throw balls and move the camera.</div>
+	<div id="container"></div>
+
+	<script src="jsm/libs/ammo.wasm.js"></script>
+
+	<script type="importmap">
+	  {
+	    "imports": {
+	      "three": "https://unpkg.com/three@0.160.1/build/three.module.js",
+	      "three/addons/": "https://unpkg.com/three@0.160.1/examples/jsm/"
+	    }
+	  }
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module" src="https://threejs.org/examples/jsm/controls/OrbitControls.js"></script>
+    <script type="module" src="./physics_ammo_break.js"></script>
+	</body>
+	
+</html>

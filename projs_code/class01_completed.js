@@ -11,8 +11,11 @@ if (!gl) {
 const vertices = new Float32Array([
     // triangle 1.
     0.0, 0.5, 0.0,
-    -0.5, -0.5, 0.0,
+   -0.5, -0.5, 0.0,
     0.5, -0.5, 0.0,
+    0.5, 0.5, 0.0,
+    -0, -0.5, 0.0,
+    1.5, -0.5, 0.0,
 ]);
 
 // Create a buffer and put the vertices in it
@@ -21,32 +24,32 @@ gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
 gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
 // Define the vertex shader
-// vec3 : [x, y, z]
-// vec4 : [x, y, z, w]
-// vec4 : (a_position.x, a_position.y, 0.0, 1.0)
 const vsSource = `
     attribute vec3 a_position;
     uniform float uTimeVert;
     void main() {
         mat3 matrixY;
         // column order
-        matrixY[0] = vec3(cos(2.0 * uTimeVert), 0.0, sin(2.0 *uTimeVert)); // first column
+        matrixY[0] = vec3(cos(uTimeVert), 0.0, sin(uTimeVert)); // first column
         matrixY[1] = vec3(0.0, 1.0, 0.0); // second column
-        matrixY[2] = vec3(-sin(2.0 * uTimeVert), 0.0, cos(2.0 * uTimeVert));
+        matrixY[2] = vec3(-sin(uTimeVert), 0.0, cos(uTimeVert));
         vec3 translation = vec3(0.5*sin(uTimeVert), 0.5*cos(uTimeVert), 0);
-        vec3 transformedP = a_position; //matrixY * a_position;// + translation;
+        //vec3 transformedP = a_position;
+        vec3 transformedP = matrixY * a_position + translation;
         gl_Position = vec4(transformedP, 1.0);
     }
 `;
 
 // Define the fragment shader
+// gl_FragCoord.x and gl_FragCoord.y give the pixel coordinates
+// gl_FragCoord.z is the depth value, and gl_FragCoord.w is 1.0/w where w is the clip-space w-coordinate
 const fsSource = `
     precision mediump float;
     uniform float uTimeFrag;
     uniform vec2 screenSize; // screen resolution.
     void main() {
-        float colorR = abs(cos(uTimeFrag * 2.0));
-        float pixelCordX = gl_FragCoord.x/screenSize.x; // [0, 1]
+        float colorR = abs(cos(uTimeFrag  * 2.0));
+        float pixelCordX = gl_FragCoord.x/screenSize.x;
         float pixelCordY = gl_FragCoord.y/screenSize.y;
         vec2 cord = vec2(pixelCordX, pixelCordY);
         mat2 matrix;
@@ -56,7 +59,7 @@ const fsSource = `
         cord = matrix * cord;
         float colorG = abs(sin(cord.x * 30.0));
         float colorB = abs(cos(cord.y * 30.0));
-        gl_FragColor = vec4(0, colorG, colorB, 1.0);  // Red color
+        gl_FragColor = vec4(colorR, colorG, colorB, 1.0);  // Red color
     }
 `;
 
@@ -115,7 +118,7 @@ function render() {
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     // Draw the triangle
-    gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 3);
+    gl.drawArrays(gl.TRIANGLES, 0, vertices.length/3);
 
     // Loop the render function to animate
     requestAnimationFrame(render);

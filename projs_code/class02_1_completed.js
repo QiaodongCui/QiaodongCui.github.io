@@ -5,7 +5,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const cubeL = 1.0;
+/*const cubeL = 1.0;
 const cubeW = 1.0;
 const cubeH = 1.0;
 
@@ -47,7 +47,68 @@ const colors = new Float32Array([
     0.0, 1.0, 0.0,  // Color for Vertex 1: Green
     0.0, 0.0, 1.0,  // Color for Vertex 2: Blue
     1.0, 1.0, 0.0   // Color for Vertex 3: Yellow
-]);
+]);*/
+
+ //more complicated geometry
+const vertices = new Float32Array([
+    1.225587, 0.000000, 0.000000,
+    0.408529, 0.408529, 0.000000,
+    0.408529, 0.000000, 0.408529,
+    0.408529, 0.000000, -0.408529,
+    0.408529, -0.408529, 0.000000,
+    -1.225587, 0.000000, 0.000000,
+    -0.408529, 0.408529, 0.000000,
+    -0.408529, 0.000000, 0.408529,
+    -0.408529, -0.408529, 0.000000,
+    -0.408529, 0.000000, -0.408529,
+    0.000000, 1.225587, 0.000000,
+    0.000000, 0.408529, 0.408529,
+    0.000000, 0.408529, -0.408529,
+    0.000000, -1.225587, 0.000000,
+    0.000000, -0.408529, -0.408529,
+    0.000000, -0.408529, 0.408529,
+    0.000000, 0.000000, 1.225587,
+    0.000000, 0.000000, -1.225587]);
+
+let indices = [
+    2, 1, 4,
+    1, 3, 5,
+    3, 2, 12,
+    1, 2, 3,
+    4, 1, 5,
+    2, 4, 13,
+    5, 3, 16,
+    12, 2, 11,
+    3, 12, 17,
+    4, 5, 15,
+    2, 13, 11,
+    13, 4, 18,
+    5, 16, 14,
+    16, 3, 17,
+    12, 11, 7,
+    17, 12, 8,
+    15, 5, 14,
+    4, 15, 18,
+    11, 13, 7,
+    13, 18, 10,
+    14, 16, 9,
+    16, 17, 8,
+    12, 7, 8,
+    15, 14, 9,
+    18, 15, 10,
+    7, 13, 10,
+    9, 16, 8,
+    8, 7, 6,
+    15, 9, 10,
+    7, 10, 6,
+    9, 8, 6,
+    10, 9, 6,
+];
+indices = indices.map(item => item - 1);
+let colors = new Float32Array(vertices.length)
+for (let i = 0; i < colors.length; i++) {
+    colors[i] = Math.random();
+}
 
 // Create a geometry, add the vertices and colors, and define the faces using indices
 const geometry = new THREE.BufferGeometry();

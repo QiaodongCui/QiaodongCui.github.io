@@ -1,41 +1,69 @@
 // Importing OrbitControls (make sure the path matches the version you are using)
 import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
+import { OBJLoader } from 'https://threejs.org/examples/jsm/loaders/OBJLoader.js';
 
-// Creating the scene
-var scene = new THREE.Scene();
+let camera, scene, renderer;
+let object;
+init();
 
-// Creating the camera
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
+function init() {
 
-// Creating the renderer
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 20);
+	camera.position.z = 2.5;
 
-// Creating a cube
-var geometry = new THREE.BoxGeometry();
-var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-var cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+	// scene
+	scene = new THREE.Scene();
+	const ambientLight = new THREE.AmbientLight(0xffffff);
+	scene.add(ambientLight);
 
-// Adding OrbitControls
-var controls = new OrbitControls(camera, renderer.domElement);
+	// manager
+	function loadModel() {
+		object.traverse(function (child) {
+			if (child.isMesh) child.material.map = texture;
+		});
+		object.position.y = - 0.95;
+		object.scale.setScalar(0.01);
+		scene.add(object);
+		render();
+	}
+	const manager = new THREE.LoadingManager(loadModel);
+	// texture
+	const textureLoader = new THREE.TextureLoader(manager);
+	const texture = textureLoader.load('textures/uv_grid_opengl.jpg', render);
+	texture.colorSpace = THREE.SRGBColorSpace;
 
-// Adjust control settings if needed
-controls.minDistance = 1;
-controls.maxDistance = 10;
-controls.enablePan = true;
+	// model
+	function onProgress(xhr) {
+		if (xhr.lengthComputable) {
+			const percentComplete = xhr.loaded / xhr.total * 100;
+			console.log('model ' + percentComplete.toFixed(2) + '% downloaded');
+		}
+	}
+	function onError() { }
 
-// Animation loop
-function animate() {
-    requestAnimationFrame(animate);
+	const loader = new OBJLoader(manager);
+	loader.load('models/male02.obj', function (obj) {
+		object = obj;
+	}, onProgress, onError);
 
-    // Required if controls.enableDamping or controls.autoRotate are set to true
-    controls.update();
+	renderer = new THREE.WebGLRenderer({ antialias: true });
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	document.body.appendChild(renderer.domElement);
 
-    // Rendering the scene
-    renderer.render(scene, camera);
+	const controls = new OrbitControls(camera, renderer.domElement);
+	controls.minDistance = 2;
+	controls.maxDistance = 5;
+	controls.addEventListener('change', render);
+	window.addEventListener('resize', onWindowResize);
 }
 
-animate();
+function onWindowResize() {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function render() {
+	renderer.render(scene, camera);
+}

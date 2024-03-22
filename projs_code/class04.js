@@ -14,27 +14,32 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // add light.
-const directionLight = new THREE.DirectionalLight(0xffffff, 1)
+const directionLight = new THREE.DirectionalLight(0xffffff, 0)
 directionLight.position.set(0, 0, 10)
 scene.add(directionLight)
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // white light at 50% intensity
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 1); // white light at 50% intensity
 scene.add(ambientLight)
 
 // load different color textures
 const textureRock = new THREE.TextureLoader().load('textures/cracked+rock.jpg');
-const textureGold = new THREE.TextureLoader().load('textures/intricateGold.png');
+const textureGold = new THREE.TextureLoader().load('textures/teemo.png');
+const textureMap = new THREE.TextureLoader().load('textures/uv_grid_opengl.jpg');
 //const texture = new THREE.TextureLoader().load('textures/wood.jpg');
 const displacementMap = new THREE.TextureLoader().load('textures/cracked+rock.jpg');
 
 textureGold.colorSpace = THREE.SRGBColorSpace;
 textureRock.colorSpace = THREE.SRGBColorSpace;
+textureMap.colorSpace = THREE.SRGBColorSpace;
 
 // Creating a cube
 const boxX = 1, boxY = 1, boxZ = 1;
 const boxSegment = 100;
 const boxGeometry = new THREE.BoxGeometry(boxX, boxY, boxZ, boxSegment, boxSegment, boxSegment);
 const materialSimple = new THREE.MeshStandardMaterial({ map: textureGold });
-const materialDisplacement = new THREE.MeshStandardMaterial({ map: textureRock, displacementMap: displacementMap, displacementScale: 0.2 });
+const materialMap = new THREE.MeshStandardMaterial({ map: textureMap });
+
+const materialDisplacement = new THREE.MeshStandardMaterial({ map: textureRock, displacementMap: displacementMap, displacementScale: 1 });
 
 // add cube to the scene
 const cube = new THREE.Mesh(boxGeometry, materialSimple);
@@ -45,6 +50,16 @@ const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8, 180, 90);
 const plane = new THREE.Mesh(planeGeometry, materialDisplacement)
 plane.position.set(0, -1, 0)
 scene.add(plane);
+
+const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32); // radius, widthSegments, heightSegments
+const sphere = new THREE.Mesh(sphereGeometry, materialMap);
+sphere.position.set(1.5, 1, 0)
+scene.add(sphere);
+
+const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32); // top radius, bottom radius, height, radial segments
+const cylinder = new THREE.Mesh(cylinderGeometry, materialSimple);
+cylinder.position.set(-1.5, 1, 0);
+scene.add(cylinder);
 
 // Adding OrbitControls
 var controls = new OrbitControls(camera, renderer.domElement);

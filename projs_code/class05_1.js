@@ -33,7 +33,7 @@ function init() {
 	const textureMap = new THREE.TextureLoader().load('textures/uv_grid_opengl.jpg');
 	const textureMaterial = new THREE.MeshStandardMaterial({ map: textureMap });
 
-	const bunnyTexture = new THREE.TextureLoader().load('models/bunTexture.png');
+	const bunnyTexture = new THREE.TextureLoader().load('models/bunny_texture.png');
 	const bunnyMaterial = new THREE.MeshStandardMaterial({ map: bunnyTexture });
 
 	// Create a metallic material with a gold tint
@@ -69,12 +69,12 @@ function init() {
 	}
 	function onError() { }
 
-	loader.load('models/torus.obj', function (object) {
+	loader.load('models/bunny_uv.obj', function (object) {
 
 		// attach material
 		object.traverse(function (child) {
 			if (child.isMesh) {
-				child.material = glassmaterial; // Apply the material to each mesh
+				child.material = bunnyMaterial; // Apply the material to each mesh
 			}
 		});
 

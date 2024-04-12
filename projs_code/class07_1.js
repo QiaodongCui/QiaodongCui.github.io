@@ -37,7 +37,7 @@ function blackBodyColor(value) {
 }
 
 class particleSystem {
-	
+	// [-0.5, 0.5]^3
 	getRandomVec() {
 		return [Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5];
 	}
@@ -58,7 +58,7 @@ class particleSystem {
 		//this.BrownianWalkInit();
 		//this.gravityFallInit();
 		this.gravityAttractInit();
-
+		// depthTest: false,
 		const sprite = new THREE.TextureLoader().load('textures/disc.png');
 		sprite.colorSpace = THREE.SRGBColorSpace;
 		material = new THREE.PointsMaterial({
@@ -66,6 +66,7 @@ class particleSystem {
 			sizeAttenuation: true,
 			map: sprite,
 			alphaTest: 0.5,
+			blending: THREE.AdditiveBlending, 
 			transparent: true,
 			vertexColors: true // Use vertex colors
 		});
@@ -88,7 +89,7 @@ class particleSystem {
 		const vertices = [];
 		const colors = [];
 		for (let i = 0; i < this.m_nParticles; i++) {
-			const P = this.getFixedPosition()
+			const P = this.getRandomVec()
 			vertices.push(P[0], P[1], P[2]);
 			const C = this.getWhiteColor()
 			colors.push(C[0], C[1], C[2]); // Add the color for this vertex
@@ -160,13 +161,15 @@ class particleSystem {
 			this.m_positions[i] += this.m_velocity[i] * dt;
 			this.m_positions[i + 1] += this.m_velocity[i + 1] * dt;
 			this.m_positions[i + 2] += this.m_velocity[i + 2] * dt;
+
 			// compute the distance from the center.
 			let dist = Math.sqrt(this.m_velocity[i] * this.m_velocity[i] + this.m_velocity[i + 1] * this.m_velocity[i + 1] + this.m_velocity[i + 2] * this.m_velocity[i + 2]);
 			let color = blackBodyColor(dist * 0.5);
 			this.m_color[i] = color[0];
 			this.m_color[i + 1] = color[1];
 			this.m_color[i + 2] = color[2];
-			
+
+			// bounce on obstacle
 			if (this.m_positions[i + 1] < -1.0 && Math.abs(this.m_positions[i]) < 1.0 && Math.abs(this.m_positions[i + 2]) < 1.0) {
 				this.m_velocity[i + 1] = 0.6 * Math.abs(this.m_velocity[i + 1]);
 			}
@@ -176,7 +179,7 @@ class particleSystem {
 				this.m_positions[i] = 0;
 				this.m_positions[i + 1] = 0;
 				this.m_positions[i + 2] = 0;
-				this.m_velocity[i + 1] = 0.5 + Math.random();
+				this.m_velocity[i + 1] = 0.5 + Math.random(); // [0, 1]
 			}
 		}
 	}
@@ -209,6 +212,7 @@ class particleSystem {
 		});
 		const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32); // radius, widthSegments, heightSegments
 		const sphere = new THREE.Mesh(sphereGeometry, metalMaterial);
+		// [0,0,0]: center of gravity
 		sphere.position.set(0, 0, 0)
 		scene.add(sphere);
 	}
@@ -244,19 +248,21 @@ class particleSystem {
 
 			// reset
 			if (r < 0.8 || r > 2.0) {
-				this.m_positions[i] = Math.random() * 0.8 + 0.8;
-				this.m_positions[i + 1] = 0;
-				this.m_positions[i + 2] = 0;
+				this.m_positions[i] = Math.random() * 0.8 + 0.8; // x
+				this.m_positions[i + 1] = 0; // y
+				this.m_positions[i + 2] = 0; // z
 				this.m_velocity[i] = 0;
-				this.m_velocity[i + 1] = Math.abs(Math.random()) * 0.5 + 0.3;
-				this.m_velocity[i + 2] = Math.abs(Math.random()) * 0.1;
+				this.m_velocity[i + 1] = Math.abs(Math.random()) * 0.5 + 0.3; // v_y
+				this.m_velocity[i + 2] = Math.abs(Math.random()) * 0.1; // v_z
 			}
 		}
 
-		const speedR = maxSpeed - minSpeed;
+		// minSpeed -> 0
+		// maxSpeed -> 1
+		const speedR = maxSpeed - minSpeed; // range of velociy
 		for (let i = 0; i < this.m_positions.length; i += 3) {
 			let speedMag = Math.sqrt(this.m_velocity[i] * this.m_velocity[i] + this.m_velocity[i + 1] * this.m_velocity[i + 1] + this.m_velocity[i + 2] * this.m_velocity[i + 2]);
-			let color = blackBodyColor((speedMag - minSpeed) / speedR);
+			let color = blackBodyColor((speedMag - minSpeed) / speedR); 
 			this.m_color[i] = color[0];
 			this.m_color[i + 1] = color[1];
 			this.m_color[i + 2] = color[2];
@@ -279,7 +285,8 @@ function init() {
 
 	const ambientLight = new THREE.AmbientLight(0xffffff, 1); // white light at 50% intensity
 	scene.add(ambientLight)
-
+	
+	// 100K
 	particleSys = new particleSystem(100000);
 
 	scene.add(particleSys.m_allParticles);
@@ -294,8 +301,6 @@ function init() {
 	// Adding OrbitControls
 	controls = new OrbitControls(camera, renderer.domElement);
 	window.addEventListener('resize', onWindowResize);
-
-	
 }
 
 function onWindowResize() {

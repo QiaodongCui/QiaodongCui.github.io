@@ -10,8 +10,8 @@ if (!gl) {
 // Define the vertices for the triangle
 const vertices = new Float32Array([
     // triangle 1.
-    0.0, 0.5, 0.0,
-    -0.5, -0.5, 0.0,
+    0.0, 0.5, 0.0, // [x,y,z] -> v_0
+    -0.5, -0.5, 0.0, // [x,y,z] -> v_2
     0.5, -0.5, 0.0,
 ]);
 
@@ -24,22 +24,26 @@ gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 // vec3 : [x, y, z]
 // vec4 : [x, y, z, w]
 // vec4 : (a_position.x, a_position.y, 0.0, 1.0)
+// mat3 = [x, y, z
+//        a, b, c
+//         d,e,f]
 const vsSource = `
     attribute vec3 a_position;
     uniform float uTimeVert;
     void main() {
         mat3 matrixY;
-        // column order
-        matrixY[0] = vec3(cos(2.0 * uTimeVert), 0.0, sin(2.0 *uTimeVert)); // first column
+        matrixY[0] = vec3(cos(uTimeVert), 0.0, -sin(uTimeVert)); // first column
         matrixY[1] = vec3(0.0, 1.0, 0.0); // second column
-        matrixY[2] = vec3(-sin(2.0 * uTimeVert), 0.0, cos(2.0 * uTimeVert));
+        matrixY[2] = vec3(sin(uTimeVert), 0.0, cos(uTimeVert));
         vec3 translation = vec3(0.5*sin(uTimeVert), 0.5*cos(uTimeVert), 0);
-        vec3 transformedP = a_position; //matrixY * a_position;// + translation;
+        vec3 transformedP = a_position;// matrixY * a_position + translation;
         gl_Position = vec4(transformedP, 1.0);
     }
 `;
 
 // Define the fragment shader
+// gl_FragCoord.x and gl_FragCoord.y give the pixel coordinates
+
 const fsSource = `
     precision mediump float;
     uniform float uTimeFrag;
@@ -47,7 +51,7 @@ const fsSource = `
     void main() {
         float colorR = abs(cos(uTimeFrag * 2.0));
         float pixelCordX = gl_FragCoord.x/screenSize.x; // [0, 1]
-        float pixelCordY = gl_FragCoord.y/screenSize.y;
+        float pixelCordY = gl_FragCoord.y/screenSize.y; // [0, 1]
         vec2 cord = vec2(pixelCordX, pixelCordY);
         mat2 matrix;
         float timeNew = uTimeFrag;
@@ -56,7 +60,7 @@ const fsSource = `
         cord = matrix * cord;
         float colorG = abs(sin(cord.x * 30.0));
         float colorB = abs(cos(cord.y * 30.0));
-        gl_FragColor = vec4(0, colorG, colorB, 1.0);  // Red color
+        gl_FragColor = vec4(colorR, colorG, colorB, 1.0);  // Red color
     }
 `;
 
@@ -104,7 +108,7 @@ gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);
 // Function to update time uniform
 function render() {
     const currentTime = performance.now() * 0.001; // Current time in seconds
-
+    
     // Set the time uniform
     gl.uniform1f(uTimeVLocation, currentTime);
     gl.uniform1f(uTimeFLocation, currentTime);

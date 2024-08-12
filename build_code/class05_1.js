@@ -33,7 +33,7 @@ function init() {
 	const textureMap = new THREE.TextureLoader().load('textures/uv_grid_opengl.jpg');
 	const textureMaterial = new THREE.MeshStandardMaterial({ map: textureMap });
 
-	const bunnyTexture = new THREE.TextureLoader().load('models/bunny_texture.png');
+	const bunnyTexture = new THREE.TextureLoader().load('models/Torus_Base.png');
 	const bunnyMaterial = new THREE.MeshStandardMaterial({ map: bunnyTexture });
 
 	// Create a metallic material with a gold tint
@@ -45,8 +45,8 @@ function init() {
 
 	const matteMaterial = new THREE.MeshStandardMaterial({
 		color: 0xFFD700, // Gold color
-		metalness: 0.0,
-		roughness: 0.9
+		metalness: 0.1,
+		roughness: 0.8
 	});
 
 	const glassmaterial = new THREE.MeshPhysicalMaterial({
@@ -69,7 +69,7 @@ function init() {
 	}
 	function onError() { }
 
-	loader.load('models/bunny_uv.obj', function (object) {
+	loader.load('models/torus_texture.obj', function (object) {
 
 		// attach material
 		object.traverse(function (child) {

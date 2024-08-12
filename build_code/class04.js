@@ -14,11 +14,11 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // add light.
-const directionLight = new THREE.DirectionalLight(0xffffff, 0.5)
+const directionLight = new THREE.DirectionalLight(0xffffff, 0.0)
 directionLight.position.set(0, 0, 10)
 scene.add(directionLight)
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // white light at 50% intensity
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.0); // white light at 50% intensity
 scene.add(ambientLight)
 
 // load different color textures

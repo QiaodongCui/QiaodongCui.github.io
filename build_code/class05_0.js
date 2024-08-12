@@ -34,7 +34,7 @@ function init() {
 	}
 
 	function onError() { console.log('cant find model'); }
-	loader.load('models/bun.obj', function (object) {
+	loader.load('models/bunny.obj', function (object) {
 		// attach material
 		object.traverse(function (child) {
 			if (child.isMesh) {
@@ -42,14 +42,12 @@ function init() {
 			}
 		});
 
-		object.position.y = - 0.95;
-		object.scale.set(0.01, 0.01, 0.01);
+		//object.scale.set(0.05, 0.05, 0.05);
 		// Add the model to the scene
 		scene.add(object);
 		render();
 	}, onProgress, onError);
 	/// ---- load obj file --////
-
 
 	renderer = new THREE.WebGLRenderer({ antialias: true });
 	renderer.setPixelRatio(window.devicePixelRatio);

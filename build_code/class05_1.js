@@ -69,12 +69,12 @@ function init() {
 	}
 	function onError() { }
 
-	loader.load('models/torus_texture.obj', function (object) {
+	loader.load('models/person.obj', function (object) {
 
 		// attach material
 		object.traverse(function (child) {
 			if (child.isMesh) {
-				child.material = bunnyMaterial; // Apply the material to each mesh
+				child.material = metalMaterial; // Apply the material to each mesh
 			}
 		});
 

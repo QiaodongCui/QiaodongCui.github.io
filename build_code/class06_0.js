@@ -70,6 +70,8 @@ function setupPost() {
 			uniform sampler2D tDepth;
 			uniform float cameraNear;
 			uniform float cameraFar;
+			uniform float windowX;
+			uniform float windowY;
 
 			float readDepth( sampler2D depthSampler, vec2 coord ) {
 				float fragCoordZ = texture2D( depthSampler, coord ).x;
@@ -78,17 +80,40 @@ function setupPost() {
 				// maps the viewZ to [0,1] based on the orthogonal camera specifiction.
 				return viewZToOrthographicDepth( viewZ, cameraNear, cameraFar );
 			}
+			// image processing.
 			void main() {
+				float dx = 1.f / windowX;
+				float dy = 1.f / windowY;
+				float depthLeft = readDepth(tDepth, vUv + vec2(-dx, 0));
+				float depthCurrent = readDepth(tDepth, vUv); //[0, 1]
+				float depthRight = readDepth(tDepth, vUv + vec2(dx, 0));
+				float depthTop = readDepth(tDepth, vUv + vec2(0, -dy));
+				float depthBottom = readDepth(tDepth, vUv + vec2(0, dy));
+				// edge filter.
+				//float depth = depthCurrent*4.f - depthLeft - depthRight - depthTop - depthBottom;
+				// blur/
+				float depth = (depthCurrent + depthLeft + depthRight + depthTop + depthBottom) * 0.2f;
+				//if (sin(vUv.x * 30.f) * sin(vUv.y * 30.f) < 0.f)
+				//	depth = depthCurrent;
+				gl_FragColor.rgb = 1.0 - vec3( depth );
+				gl_FragColor.a = 1.0;
+			}
+
+			/*void main() {
 				float depth = readDepth( tDepth, vUv ); //[0, 1]
 				gl_FragColor.rgb = 1.0 - vec3( depth );
 				gl_FragColor.a = 1.0;
-			}`,
+			}*/
+			`,
 		uniforms: {
 			cameraNear: { value: camera.near },
 			cameraFar: { value: camera.far },
-			tDepth: { value: null }
+			tDepth: { value: null },
+			windowX: {value: window.innerWidth},
+			windowY: {value: window.innerHeight}
 		}
 	});
+	const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
 	const postPlane = new THREE.PlaneGeometry(2, 2);
 	const postQuad = new THREE.Mesh(postPlane, postMaterial);
 	postScene = new THREE.Scene();
@@ -98,8 +123,8 @@ function setupPost() {
 function setupScene() {
 	scene = new THREE.Scene();
 	const boxGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
-	const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-	// add a bunch of cubes.
+	const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+	// add a bunch of cubes. // [-3, 3] // [0, 3]
 	for (let x = -3; x <= 3; x++)
 		for (let y = -3; y <= 3; y++)
 			for (let z = -3; z <= 3; z++) {
@@ -121,7 +146,7 @@ function onWindowResize() {
 }
 
 function animate() {
-
+	
 	requestAnimationFrame(animate);
 
 	// render scene into target texture instead of screen.

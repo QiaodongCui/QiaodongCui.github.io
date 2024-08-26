@@ -14,10 +14,10 @@ function init() {
 	// scene
 	scene = new THREE.Scene();
 
-	const ambientLight = new THREE.AmbientLight(0xcccccc, 3.2);
+	const ambientLight = new THREE.AmbientLight(0xcccccc, 0.2);
 	scene.add(ambientLight);
 
-	const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+	const directionalLight = new THREE.DirectionalLight(0xffffff, 10.8);
 	directionalLight.position.set(1, 1, 0).normalize();
 	scene.add(directionalLight);
 
@@ -69,12 +69,14 @@ function init() {
 	}
 	function onError() { }
 
-	loader.load('models/person.obj', function (object) {
+	loader.load('models/bunny.obj', function (object) {
 
 		// attach material
 		object.traverse(function (child) {
 			if (child.isMesh) {
 				child.material = metalMaterial; // Apply the material to each mesh
+				child.castShadow = true;
+				child.receiveShadow = true;
 			}
 		});
 

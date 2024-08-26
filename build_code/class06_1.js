@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
 import { ShadowMapViewer } from 'https://threejs.org/examples/jsm/utils/ShadowMapViewer.js';
+import { OBJLoader } from 'https://threejs.org/examples/jsm/loaders/OBJLoader.js';
 
 const viewDepthMap = true;
 
@@ -81,12 +82,41 @@ function initScene() {
 			}
 	// shift everything up by 2
 	group.position.set(0, 5, 0);
-	scene.add(group)
+	//scene.add(group)
+	// model
+	function onProgress(xhr) {
+		if (xhr.lengthComputable) {
+			const percentComplete = xhr.loaded / xhr.total * 100;
+			//console.log('model ' + percentComplete.toFixed(2) + '% downloaded');
+		}
+	}
+	function onError() { }
+	const loader = new OBJLoader();
+	loader.load('models/bunny.obj', function (object) {
+		object.traverse(function (child) {
+			if (child.isMesh) {
+				child.material = material; // Apply the material to each mesh
+				child.castShadow = true;
+				child.receiveShadow = true;
+			}
+		});
 
-	group1 = group.clone();
-	group1.scale.set(0.5, 0.5, 0.5)
-	group1.position.set(10, 3, 10)
-	scene.add(group1)
+		// Calculate the bounding box to get model size and center
+		const boundingBox = new THREE.Box3().setFromObject(object);
+		// Center the model
+		const center = boundingBox.getCenter(new THREE.Vector3());
+		// Scale the model to a unit scale and center it to (0,0,0)
+		const size = boundingBox.getSize(new THREE.Vector3());
+		const maxDimension = Math.max(size.x, size.y, size.z);
+		const scale = 4.0 / maxDimension;
+		object.scale.set(scale, scale, scale);
+		object.position.set(-center.x * scale, 10 -center.y * scale, -center.z * scale)
+
+		// Add the model to the scene
+		scene.add(object);
+		render();
+	}, onProgress, onError);
+
 
 	const geometry = new THREE.BoxGeometry(10, 0.15, 10);
 	material = new THREE.MeshPhongMaterial({
@@ -177,7 +207,7 @@ function render() {
 	//group.rotation.y = 0.45;
 	//group.rotation.z = 0.3;
 
-	group1.rotation.x += 0.05 * delta;
-	group1.rotation.y += 0.5 * delta;
-	group1.rotation.z += 0.25 * delta;
+	//group1.rotation.x += 0.05 * delta;
+	//group1.rotation.y += 0.5 * delta;
+	//group1.rotation.z += 0.25 * delta;
 }

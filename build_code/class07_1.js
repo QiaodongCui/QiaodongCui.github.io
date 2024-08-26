@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'https://threejs.org/examples/jsm/controls/OrbitControls.js';
-//import chroma from 'https://cdn.jsdelivr.net/npm/chroma-js@2.1.0/chroma.js';
 
 let camera, scene, renderer, material;
 let controls;
+let pause = true;
 
 function blackBodyColor(value) {
     // Ensure the value is within [0, 1]
@@ -41,7 +41,6 @@ class particleSystem {
 	getRandomVec() {
 		return [Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5];
 	}
-
 	getFixedPosition() {
 		return [0,0,0];
 	}
@@ -49,7 +48,7 @@ class particleSystem {
 		return [Math.random(), Math.random(), Math.random()];
 	}
 	getWhiteColor() {
-		return [1, 1, 1];
+		return [1, 1, 1]; // r, g, b
 	}
 
 	constructor(nParticles) {
@@ -90,7 +89,7 @@ class particleSystem {
 		const colors = [];
 		for (let i = 0; i < this.m_nParticles; i++) {
 			const P = this.getRandomVec()
-			vertices.push(P[0], P[1], P[2]);
+			vertices.push(0, P[1], P[2]); // x,y,z coordinates
 			const C = this.getWhiteColor()
 			colors.push(C[0], C[1], C[2]); // Add the color for this vertex
 		}
@@ -102,7 +101,7 @@ class particleSystem {
 		// update position and color
 		for (let i = 0; i < this.m_positions.length; i += 3) {
 			// For each vertex (particle), add a small random displacement
-			this.m_positions[i] += (Math.random() - 0.5) * displacementScale; // x
+			this.m_positions[i] +=     (Math.random() - 0.5) * displacementScale; // x
 			this.m_positions[i + 1] += (Math.random() - 0.5) * displacementScale; // y
 			this.m_positions[i + 2] += (Math.random() - 0.5) * displacementScale; // z
 			// compute the distance from the center.
@@ -158,9 +157,9 @@ class particleSystem {
 		const dt = 1.0/60.0;  // timestep
 		for (let i = 0; i < this.m_positions.length; i += 3) {
 			this.m_velocity[i + 1] += a * dt;
-			this.m_positions[i] += this.m_velocity[i] * dt;
-			this.m_positions[i + 1] += this.m_velocity[i + 1] * dt;
-			this.m_positions[i + 2] += this.m_velocity[i + 2] * dt;
+			this.m_positions[i] += this.m_velocity[i] * dt; // v_x
+			this.m_positions[i + 1] += this.m_velocity[i + 1] * dt; // v_y
+			this.m_positions[i + 2] += this.m_velocity[i + 2] * dt; // v_z
 
 			// compute the distance from the center.
 			let dist = Math.sqrt(this.m_velocity[i] * this.m_velocity[i] + this.m_velocity[i + 1] * this.m_velocity[i + 1] + this.m_velocity[i + 2] * this.m_velocity[i + 2]);
@@ -272,6 +271,12 @@ class particleSystem {
 
 let particleSys;
 
+function onKeyDown(event) {
+    if (event.key == 'p') {
+		pause = !pause;
+    }
+}
+
 function init() {
 
 	camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -301,6 +306,7 @@ function init() {
 	// Adding OrbitControls
 	controls = new OrbitControls(camera, renderer.domElement);
 	window.addEventListener('resize', onWindowResize);
+	window.addEventListener('keydown', onKeyDown, false);
 }
 
 function onWindowResize() {
@@ -316,7 +322,8 @@ function render() {
 function animate() {
 	requestAnimationFrame(animate);
 	controls.update();
-	particleSys.update();
+	if (!pause)
+		particleSys.update();
 	render();
 }
 

@@ -1,227 +1,258 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-	<meta name="google-site-verification" content="d1JU9stcwMmDqVbbX9vNfj-VeFnjx1JOmj21s_yfhHw" />
-    <title>Qiaodong's Homepage</title>
-    <link rel="stylesheet" type="text/css">
-	<style>
-	p {
-	  font-size: 20px;
-	}
-	a{
-		font-size: 20px;
-	}
-	b {
-		font-size: 20px;
-  	    font-weight: bold;
-	}
-	sb {
-		font-size: 12px;
-  	    font-weight: bold;
-	}
-  figcaption {
-      font-size: 18px; /* Adjust the size to your preference */
-      font-weight: bold; /* Optional: Makes the text bold */
-      color: #333; /* Optional: Changes the color */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qiaodong Cui - Homepage</title>
+  <style>
+    /* General Body Styling */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
     }
-  .figure-container {
-    display: flex;
-    justify-content: flex-start; /* Align items to the left */
-    gap: 0px; /* Optional: Add spacing between figures */
-  }
-  .profile-photo {
-    position: absolute;
-    top: 20px; /* Distance from the top */
-    right: 20px; /* Distance from the right */
-    width: 200px; /* Adjust size as needed */
-    height: auto; /* Maintain aspect ratio */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow for aesthetics */
-  }
-	</style>
+
+    /* Header Section */
+    .header {
+      padding: 20px;
+      text-align: center;
+      background-color: #f4f4f4;
+    }
+
+    .header img {
+      width: 150px;
+      height: auto;
+      border-radius: 50%;
+      margin-top: 10px;
+    }
+
+    /* Main Content */
+    .container {
+      padding: 20px;
+    }
+
+    /* Responsive Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    td {
+      padding: 10px;
+    }
+
+    /* Responsive Figures */
+    .figure-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    figure {
+      text-align: center;
+      max-width: 200px;
+    }
+
+    figure img {
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #555;
+    }
+
+    /* Media Query for Smaller Screens */
+    @media (max-width: 768px) {
+      .header img {
+        width: 100px;
+      }
+
+      .header {
+        font-size: 1rem;
+        padding: 10px;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+      figure {
+        max-width: 150px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <!-- Header Section -->
+  <div class="header">
+    <h1>Qiaodong Cui</h1>
+    <img src="./images/qiaodong.jpg" alt="Qiaodong Cui">
+    <p>Research Engineer at <a href="https://inkbit3d.com/">Inkbit</a></p>
+    <p>Email: qcui@inkbit3d.com, cqd123123@hotmail.com </p>
+    <p> <a href=" https://www.linkedin.com/in/qiaodong-cui-ph-d-740805b5/">LinkedIn</a></p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2>About Me</h2>
+    <p> I am a research engineer with a Ph.D. in Computer Graphics from the <a href="https://www.ucsb.edu/" target="_blank">University of California, Santa Barbara</a>, where I was mentored by <a href="http://www.tkim.graphics/" target="_blank">Professor Ted Kim</a>. My expertise lies in computational graphics, simulation, and optimization, with a focus on developing scalable solutions that address industry challenges. </p> <p> As the main inventor to SSP (Scalable Spectral Packing) technology, I have led its research and development across diverse industries such as 3D printing, robotics, and manufacturing. SSP has been successfully deployed to our clients to optimize their workflows and reduce costs. One highlight of that is the publication <a href="https://inkbit3d.com/packing/" target="_blank">"Dense, Interlocking-Free and Scalable Spectral Packing of Generic 3D Objects"</a>, presented at SIGGRAPH 2023 and covered by major outlets such as MIT News, Yahoo, and Voxelmatters. </p> <p> My research spans physically based animation, geometry processing, and shape analysis, where I have developed efficient spectral methods for 3D packing and smoke simulation. 
+    </p> <p> Beyond research, I contribute to education as a Software Development Fellow at the <a href="https://www.openavenuesfoundation.org/" target="_blank">Open Avenues Foundation</a>, where I design and teach courses on computer graphics, focusing on WebGL and Three.js. </p>
+
+<hr>
+
+    <h2>Experience</h2>
+    <ul>
+      <li><b>Research Engineer</b>, <a href="https://inkbit3d.com/company/">Inkbit</a> (Oct 2021 - Present)
+      <p> Working with Professor <a href="https://cdfg.mit.edu/wojciech"> Wojciech Matusik </a> and Dr. Desai Chen. </p> </li>
+      <li><b>Software Development Fellow</b>, <a href="https://www.openavenuesfoundation.org/">Open Avenues Foundation</a> (Oct 2023 - Present) 
+      <p> Design and teach an 8-week course on computer graphics, focusing on WebGL and Three.js development. Mentored students in career development and provided guidance on interview strategies </p></li>
+      <li><b>Postdoctoral Associate</b>, <a href="https://graphics.cs.yale.edu/">Yale Computer Graphics Group</a> (Sep 2020 - Sep 2021)</li>
+      <!--Job description and achievements for Job Title 1...-->
+      <li><b>Ph.D. Student</b>, <a href="https://www.ucsb.edu/">University of California, Santa Barbara</a> (Sep 2015 - Jul 2020)</li>
+      <!--Job description and achievements for Job Title 1...-->
+    </ul>
+
+<hr>
+
+    <h2>Commercialization and Technology Transfer</h2>
+    <p> I spearhead the research and development of software products derived from the SSP technology with the following products: </p>
+
+    <p> <b>Inkbit Construct</b> This is Inkbit's proprietary build preparation tool leverages SSP to streamline 3D printing operations. It significantly reduces manual labor with the build preparation and boosting printer throughput by up to 30%.
+    </p>
+
+    <p> <b>Fitting Pack</b> Developed for a leading candy and toy manufacturer, this tool ensures toys fit into designated containers while incorporating digital safety checks. It achieved substantial time and cost savings by largely replacing client's manual processes with digital automation.
+    </p>
+
+    <p> <b>Flex Pack</b> Designed for <a href="https://ima.it/e-commerce/"> IMA </a>, a global leader in box-on-demand machines, this software selects optimal box sizes for cutting machines, reducing shipping costs. It also analyzes client order histories to config boxes for the machine, achieving greater savings.
+    </p>
+
+    <p> <b>SSP in <a href = "https://www.synera.io/"> Synera </a> </b> We collaborate with Synera to bring SSP into the Synera marketplace. We aim to make build preparation for additive manufacturing more accessible and cost-effective for a broader range of companies.
+    </p>
+
+    <p> <b>SSP for Robotics Packing</b> This evaluation project was conducted in collaboration with a major e-commerce company. We integrated SSP into Nvidia Isaac Sim to develop a robotic box-packing simulation. During the evaluation, our solution outperformed the company's existing system.
+    </p>
+
+    <p> These products have generated significant additional revenue for Inkbit while delivering transformative solutions for our partners and clients. Please visit <a href="https://inkbit3d.com/packing/">https://inkbit3d.com/packing/</a> for more details.
+    </p>
+
+    <div class="figure-container">  
+    <figure>
+      <img src="./images/construct.png" alt="Inkbit Construct Software" height="250">
+      <figcaption>Inkbit Construct: Streamlining 3D printing operations</figcaption>
+    </figure>
+    <figure>
+      <img src="./images/fitPack.png" alt="Fitting Pack Tool" height="250">
+      <figcaption>Fitting Pack: Revolutionizing toy design workflows</figcaption>
+    </figure>
+    <figure>
+      <img src="./images/boxSelect.png" alt="Flex Pack Software" height="250">
+      <figcaption>Flex Pack: Optimizing shipping costs with smarter box sizes</figcaption>
+    </figure>
+    <figure>
+      <img src="./images/botSSP.png" alt="Flex Pack Software" height="250">
+      <figcaption>SSP for Robotics Packing </figcaption>
+    </figure>
+    </div>
   
-<p>
-<table width="100%" border="0" cellpadding="5" cellspacing="0">
-<tbody><tr>
-
-<h2>Qiaodong Cui</h2><br>
-<a href="https://inkbit3d.com/">Inkbit</a><br>
-Medford, MA 02155<br>
-Work Email: qcui@inkbit3d.com<br>
-Personal Email: cqd123123@hotmail.com<br>
- <a href=" https://www.linkedin.com/in/qiaodong-cui-ph-d-740805b5/"> LinkedIn </a>
-</td>
-</tr>
-</tbody></table>
-</p>
-<img src="./images/qiaodong.jpg" alt="Your Photo" class="profile-photo">
-<hr>
-<p class="header">
- <!--I'm currently a research engineer at <a href="https://inkbit3d.com/company/"> Inkbit </a>, a MIT startup focused on industrial 3D printing. I studied computer graphics and received my Ph.D. at <a href="https://www.ucsb.edu/"> University of California, Santa Barbara </a> under the supervision of Professor <a href="http://www.tkim.graphics/"> Ted Kim </a>.
-</p>-->
-<h1>About me</h1>
-
-<p> I am a research engineer and innovator with a Ph.D. in Computer Graphics from the <a href="https://www.ucsb.edu/" target="_blank">University of California, Santa Barbara</a>, where I was mentored by <a href="http://www.tkim.graphics/" target="_blank">Professor Ted Kim</a>. My expertise lies in computational graphics, simulation, and optimization, with a focus on developing scalable solutions that address industry challenges. </p> <p> As the main inventor to SSP (Spatial Simulation and Packing) technology, I have led its development and commercialization across diverse industries such as 3D printing, robotics, and manufacturing. My work has been successfully deployed to our clients to optimize their workflows and reduce costs. One highlight of my career is the publication <a href="https://inkbit3d.com/packing/" target="_blank">"Dense, Interlocking-Free and Scalable Spectral Packing of Generic 3D Objects"</a>, presented at SIGGRAPH 2023 and widely covered by major outlets such as MIT News, Yahoo, and Voxelmatters. </p> <p> My research spans physically based animation, geometry processing, and shape analysis, where I have developed efficient spectral methods for 3D packing and smoke simulation. 
-</p> <p> Beyond research, I contribute to education as a Software Development Fellow at the <a href="https://www.openavenuesfoundation.org/" target="_blank">Open Avenues Foundation</a>, where I design and teach courses on computer graphics, focusing on WebGL and Three.js. Additionally, I mentor students, guiding them in career development and technical excellence. </p> 
 <hr>
 
-<!--<h1>Research Interests</h1>
-<p>
-My research interests include physically based animations, geometry processing and shape analysis. I developed some efficient spectral methods for 3D packing and smoke animations.
-</p>
-<p> My work reflects a passion for merging cutting-edge technology with practical applications, consistently driving impactful innovation in computational graphics and industrial optimization. </p>
-<hr>-->
+  <h2>Publications</h2>
+  <table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
+  <td align="center" width="160"><img src="./images/SIG23.png" border="none" width="250"></a></td>
+  <td><strong><a href="https://inkbit3d.com/packing/">Dense, Interlocking-Free and Scalable Spectral Packing of Generic 3D Objects</a></strong><br>
+  <p> <b>Qiaodong Cui</b>, Victor Rong, Desai Chen, Wojciech Matusik</p>
+  <p> ACM Transactions on Graphics (SIGGRAPH 2023) </p>
+  <p> <span style="color:red; font-weight:bold;"> Spotlighted on the </span> <a href="https://web.mit.edu/archive/spotlight/better-and-faster-packing/">  MIT front page </a>, <a href="https://news.mit.edu/2023/chore-packing-just-got-faster-and-easier-0706"> MIT News </a>, and reported by various media such as: <a href="https://finance.yahoo.com/news/pack-knit-challenges-3d-printing-194000956.html"> Yahoo </a>, <a href="https://s2023.siggraph.org/pack-it-knit-it-link-it-challenges-in-3d-printing-textile-production-and-beyond/"> SIGGRAPH </a>, <a href="https://www-voxelmatters-com.cdn.ampproject.org/c/s/www.voxelmatters.com/mit-and-inkbit-present-spectral-packing-method-for-packing-3d-objects/amp/"> Voxelmatters </a>, <a href="https://3dprintingindustry.com/news/mit-and-inkbit-scalable-spectral-packing-method-boosts-3d-printing-throughout-223012/"> 3dprintingindustry </a>, <a href="https://www.3printr.com/mit-inkbit-3d-printing-spectral-packing-method-2863221/"> 3printr </a>, <a href="https://3dprinting.com/news/mit-algorithm-maximizes-3d-object-packing-efficiency/"> 3dprinting </a> <p>
+  <p><sb> <a href="./papers/S23-spectralPacking.pdf"> [Paper] <a href="https://inkbit3d.com/packing/"> [Project] </sb> </p>
+  </td>
+  </tr>
 
-<h1>Experience</h1>
-<div class="timeline">
-  <div class="timeline-item">
-    <h2>Research engineer &emsp; <a href="https://inkbit3d.com/company/"> Inkbit </a> &emsp; Oct 2021 - Present </h2>
-    <p> Working with Professor <a href="https://cdfg.mit.edu/wojciech"> Wojciech Matusik </a> and Dr. Desai Chen. </p>
-  </div>
-  <div class="timeline-item">
-    <h2> Software Development Fellow &emsp; <a href="https://www.openavenuesfoundation.org/"> Open Avenues Foundation </a> &emsp; Oct 2023 - Present </h2>
-    <p> Design and teach an 8-week course on computer graphics, focusing on WebGL and Three.js development. Mentored students in career development and provided guidance on interview strategies </p>
-  </div>
-  <div class="timeline-item">
-    <h2>Postdoctoral Associate &emsp; <a href="https://graphics.cs.yale.edu/"> Yale Computer Graphics Group</a> &emsp; Sep 2020 - Sep 2021 </h2>
-    <!--Job description and achievements for Job Title 1...-->
-  </div>
-  <div class="timeline-item">
-    <h2>Ph.D. student &emsp; <a href="https://www.ucsb.edu/"> University of California, Santa Barbara </a> &emsp; Sep 2015 - July 2020 </h2>
-    <!--Job description and achievements for Job Title 1...-->
-  </div>
-</div>
+  <table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
+  <td align="center" width="160"><img src="./images/2024scalingLaw.png" border="none" width="250"></a></td>
+  <td><strong><a href="./papers/2024-scalingLaw.pdf">A Universal Scaling Law for Intrinsic Fracture Energy of Networks</a></strong><br>
+  <p> Chase Hartquist, Shu Wang, <b>Qiaodong Cui</b>, Wojciech Matusik, Bolei Deng, Xuanhe Zhao </p>
+  <!--  p> Under Review </p>-->
+  <p><sb> <a href="./papers/2024-scalingLaw.pdf"> [Paper]  <a href="https://arxiv.org/abs/2401.05564"> [Link] </sb>   <p>
+  </td>
+  </tr>
+
+  <table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
+  <td align="center" width="160"><img src="./images/SIGA21.png" border="none" width="250"></a></td>
+  <td><strong><a href="./papers/SIGA21/SpiralSpectralFluids.pdf">Spiral-spectral Fluid Simulation</a></strong><br>
+  <p> <b>Qiaodong Cui</b>, Timothy Langlois, Pradeep Sen, Theodore Kim</p>
+  <p> ACM Transactions on Graphics (SIGGRAPH Asia 2021) </p>
+  <p><sb> <a href="./papers/SIGA21/SpiralSpectralFluids.pdf"> [Paper] <a href="https://youtu.be/v6W2lt8k4VQ"> [Video] <a href="./papers/SIGA21/SA21_Presentation.pdf"> [Slides] <a href="./papers/SIGA21/SpiralSpectralSupplement.pdf"> [Supplement] <a href="./papers/SIGA21/spiral_spectral_source.zip"> [Code] </sb> <p>
+  </td>
+  </tr>
+
+  <table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
+  <td align="center" width="160"><img src="./images/ProbOpt.png" border="none" width="250"></a></td>
+  <td><strong><a href="./ProbOpt/ProbOptEG.pdf">Fast and Robust Stochastic Structural Optimization</a></strong><br>
+  <p> <b>Qiaodong Cui</b>, Timothy Langlois, Pradeep Sen, Theodore Kim</p>
+  <p> Eurographics 2020</p>
+  <p><sb> <a href="./ProbOpt/ProbOptEG.pdf"> [Paper] <a href="https://youtu.be/rgG7zrjsErs"> [Video] <a href="./ProbOpt/probOpt.pdf"> [Slides]</sb> <p>
+  </td>
+  </tr>
+
+  <table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
+  <td align="center" width="160"><a href="./SIG18-EigenFluid/index.html" target="_blank"><img src="./images/SIG18-EigenFluids.png" border="none" width="250"></a></td>
+  <td><strong><a href="./SIG18-EigenFluid/index.html">Scalable Laplacian Eigenfluids</a></strong><br>
+  <p><b> Qiaodong Cui</b>, Pradeep Sen and Theodore Kim </p>
+  <p> ACM Transactions on Graphics (SIGGRAPH 2018) <p>
+  <p><sb> <a href="./SIG18-EigenFluid/ScalableEigenFluid.pdf"> [Paper] <a href="./SIG18-EigenFluid/index.html"> [Project] <a href="https://www.youtube.com/embed/i4zyZzCedj4"> [Video] <a href="./SIG18-EigenFluid/EigenFluid.pdf"> [Slides]</sb> <p>
+  </td>
+  </tr>
+
+  <table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
+  <td align="center" width="160"><a href="https://arxiv.org/abs/1710.01602" target="_blank"><img src="./images/graphmatch.png" border="none" width="250"></a></td>
+  <td><strong><a href="https://arxiv.org/abs/1710.01602">GraphMatch: Efficient Large-Scale Graph Construction for Structure from Motion</a></strong><br>
+  <p><b> Qiaodong Cui</b>, Victor Fragoso, Chris Sweeney and Pradeep Sen </p>
+  <p> International Conference on 3D Vision 2017 <b> Oral</b></p>
+  <p><sb> <a href="./papers/LargeScaleSfM.pdf"> [Paper] <a href="https://youtu.be/gMbg4rjRlx4"> [Video] <a href="./papers/GraphMatchPPt.pdf"> [Slides] <a href="./papers/3DV2017_Poster.pdf"> [Poster]</sb> <p>
+  </td>
+  </tr>
+
+  <table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
+  <td align="center" width="160"><a href="./papers/flame-EG2015.pdf" target="_blank"><img src="./images/flame-EG2015.png" border="none" width="250"></a></td>
+  <td><strong><a href="./papers/flame-EG2015.pdf">Target Temperature Driven Dynamic Flame Animation</a></strong><br>
+  <p><b> Qiaodong Cui</b>, Zhaohui Wu, Chang Xing, Zhong Zhou, Wei Wu </p>
+  <p> Eurographics 2015</p> 
+  <p><b> <a href="./papers/flame-EG2015.pdf"> [Paper] <a href="./papers/flame-EG2015.mp4"> [Video] </b></p>
+  </td>
+  </tr>
+
+  <table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
+  <td align="center" width="160"><a href="./papers/mesh-2014.pdf" target="_blank"><img src="./images/mesh-2014.png" border="none" width="250"></a></td>
+  <td><strong><a href="./papers/mesh-2014.pdf">Automatic Mesh Animation Preview</a></strong><br>
+  <p>Yi Li, <b> Qiaodong Cui</b>, Fei Dou and Zhong Zhou </p>
+  <p> IEEE International Conference on Multimedia and Expo 2014</p>
+  <p><b> <a href="./papers/mesh-2014.pdf"> [Paper] </b></p>
+  </td>
+  </tr>
+  </tbody></table>
+
 <hr>
-
-<h1>Commercialization and Technology Transfer</h1>
-<p>
-I spearhead the research and development of innovative software products based on the SSP technology I invented. These advancements have successfully been commercialized into the following products:
-</p>
-
-<p> <b>Inkbit Construct</b> This is Inkbit's proprietary build preparation tool leverages SSP to streamline 3D printing operations. By automating part arrangement, it significantly reduces manual labor, improving build preparation efficiency and boosting printer throughput by up to 30%.
-</p>
-
-<p> <b>Fitting Pack</b> Developed for a leading candy and toy manufacturer, this tool ensures toys fit into designated containers while incorporating advanced digital safety checks. By replacing manual processes with digital automation, it revolutionized the client's design workflow, achieving substantial time and cost savings.
-</p>
-
-<p> <b>Flex Pack</b> Designed for <a href="https://ima.it/e-commerce/"> IMA </a>, a global leader in box-on-demand machines, this software selects optimal box sizes for cutting machines, reducing shipping costs. Additionally, it analyzes client order histories to optimize box dimensions further, achieving even greater savings.
-</p>
-
-<p> <b>SSP in Synera</b> In collaboration with Synera, a leader in industrial automation software, we integrated SSP into the Synera marketplace. This ongoing project aims to make build preparation for additive manufacturing more accessible and cost-effective for a broader range of companies.
-</p>
-
-<p> <b>SSP for Robotics Packing</b> This evaluation project was conducted in collaboration with a major e-commerce company. We integrated SSP into Nvidia Isaac Sim to develop a robotic box-packing simulation. During the evaluation, our solution outperformed the company's existing system, demonstrating superior efficiency and accuracy.
-</p>
-
-<p> These products have generated significant additional revenue for Inkbit while delivering transformative solutions for our partners and clients. Please visit <a href="https://inkbit3d.com/packing/">https://inkbit3d.com/packing/</a> for more details.
-</p>
-
-<div class="figure-container">  
-<figure>
-  <img src="./images/construct.png" alt="Inkbit Construct Software" height="220">
-  <figcaption>Inkbit Construct: Streamlining 3D printing operations</figcaption>
-</figure>
-<figure>
-  <img src="./images/fitPack.png" alt="Fitting Pack Tool" height="220">
-  <figcaption>Fitting Pack: Revolutionizing toy design workflows</figcaption>
-</figure>
-<figure>
-  <img src="./images/boxSelect.png" alt="Flex Pack Software" height="220">
-  <figcaption>Flex Pack: Optimizing shipping costs with smarter box sizes</figcaption>
-</figure>
-<figure>
-  <img src="./images/botSSP.png" alt="Flex Pack Software" height="220">
-  <figcaption>SSP for Robotics Packing </figcaption>
-</figure>
-</div>
-
-<hr>
-
-<h1>Publications</h1>
-
-<table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
-<td align="center" width="62"><img src="./images/SIG23.png" border="none" width="250"></a></td>
-<td><strong><a href="https://inkbit3d.com/packing/">Dense, Interlocking-Free and Scalable Spectral Packing of Generic 3D Objects</a></strong><br>
-<p> <b>Qiaodong Cui</b>, Victor Rong, Desai Chen, Wojciech Matusik</p>
-<p> ACM Transactions on Graphics (SIGGRAPH 2023) </p>
-<p> <span style="color:red; font-weight:bold;"> Spotlighted on the </span> <a href="https://web.mit.edu/archive/spotlight/better-and-faster-packing/">  MIT front page </a>, <a href="https://news.mit.edu/2023/chore-packing-just-got-faster-and-easier-0706"> MIT News </a>, and reported by various media such as: <a href="https://finance.yahoo.com/news/pack-knit-challenges-3d-printing-194000956.html"> Yahoo </a>, <a href="https://s2023.siggraph.org/pack-it-knit-it-link-it-challenges-in-3d-printing-textile-production-and-beyond/"> SIGGRAPH </a>, <a href="https://www-voxelmatters-com.cdn.ampproject.org/c/s/www.voxelmatters.com/mit-and-inkbit-present-spectral-packing-method-for-packing-3d-objects/amp/"> Voxelmatters </a>, <a href="https://3dprintingindustry.com/news/mit-and-inkbit-scalable-spectral-packing-method-boosts-3d-printing-throughout-223012/"> 3dprintingindustry </a>, <a href="https://www.3printr.com/mit-inkbit-3d-printing-spectral-packing-method-2863221/"> 3printr </a>, <a href="https://3dprinting.com/news/mit-algorithm-maximizes-3d-object-packing-efficiency/"> 3dprinting </a> <p>
-<p><sb> <a href="./papers/S23-spectralPacking.pdf"> [Paper] <a href="https://inkbit3d.com/packing/"> [Project] </sb> <p>
-</td>
-</tr>
-
-<table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
-<td align="center" width="62"><img src="./images/2024scalingLaw.png" border="none" width="250"></a></td>
-<td><strong><a href="./papers/2024-scalingLaw.pdf">A Universal Scaling Law for Intrinsic Fracture Energy of Networks</a></strong><br>
-<p> Chase Hartquist, Shu Wang, <b>Qiaodong Cui</b>, Wojciech Matusik, Bolei Deng, Xuanhe Zhao </p>
-<p> Under Review </p>
-<p><sb> <a href="./papers/2024-scalingLaw.pdf"> [Paper]  <a href="https://arxiv.org/abs/2401.05564"> [Link] </sb>   <p>
-</td>
-</tr>
-
-<table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
-<td align="center" width="62"><img src="./images/SIGA21.png" border="none" width="250"></a></td>
-<td><strong><a href="./papers/SIGA21/SpiralSpectralFluids.pdf">Spiral-spectral Fluid Simulation</a></strong><br>
-<p> <b>Qiaodong Cui</b>, Timothy Langlois, Pradeep Sen, Theodore Kim</p>
-<p> ACM Transactions on Graphics (SIGGRAPH Asia 2021) </p>
-<p><sb> <a href="./papers/SIGA21/SpiralSpectralFluids.pdf"> [Paper] <a href="https://youtu.be/v6W2lt8k4VQ"> [Video] <a href="./papers/SIGA21/SA21_Presentation.pdf"> [Slides] <a href="./papers/SIGA21/SpiralSpectralSupplement.pdf"> [Supplement] <a href="./papers/SIGA21/spiral_spectral_source.zip"> [Code] </sb> <p>
-</td>
-</tr>
-
-<table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
-<td align="center" width="62"><img src="./images/ProbOpt.png" border="none" width="250"></a></td>
-<td><strong><a href="./ProbOpt/ProbOptEG.pdf">Fast and Robust Stochastic Structural Optimization</a></strong><br>
-<p> <b>Qiaodong Cui</b>, Timothy Langlois, Pradeep Sen, Theodore Kim</p>
-<p> Eurographics 2020</p>
-<p><sb> <a href="./ProbOpt/ProbOptEG.pdf"> [Paper] <a href="https://youtu.be/rgG7zrjsErs"> [Video] <a href="./ProbOpt/probOpt.pdf"> [Slides]</sb> <p>
-</td>
-</tr>
-
-<table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
-<td align="center" width="62"><a href="./SIG18-EigenFluid/index.html" target="_blank"><img src="./images/SIG18-EigenFluids.png" border="none" width="250"></a></td>
-<td><strong><a href="./SIG18-EigenFluid/index.html">Scalable Laplacian Eigenfluids</a></strong><br>
-<p><b> Qiaodong Cui</b>, Pradeep Sen and Theodore Kim </p>
-<p> ACM Transactions on Graphics (SIGGRAPH 2018) <p>
-<p><sb> <a href="./SIG18-EigenFluid/ScalableEigenFluid.pdf"> [Paper] <a href="./SIG18-EigenFluid/index.html"> [Project] <a href="https://www.youtube.com/embed/i4zyZzCedj4"> [Video] <a href="./SIG18-EigenFluid/EigenFluid.pdf"> [Slides]</sb> <p>
-</td>
-</tr>
-
-<table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
-<td align="center" width="62"><a href="https://arxiv.org/abs/1710.01602" target="_blank"><img src="./images/graphmatch.png" border="none" width="250"></a></td>
-<td><strong><a href="https://arxiv.org/abs/1710.01602">GraphMatch: Efficient Large-Scale Graph Construction for Structure from Motion</a></strong><br>
-<p><b> Qiaodong Cui</b>, Victor Fragoso, Chris Sweeney and Pradeep Sen </p>
-<p> International Conference on 3D Vision 2017 <b> Oral</b></p>
-<p><sb> <a href="./papers/LargeScaleSfM.pdf"> [Paper] <a href="https://youtu.be/gMbg4rjRlx4"> [Video] <a href="./papers/GraphMatchPPt.pdf"> [Slides] <a href="./papers/3DV2017_Poster.pdf"> [Poster]</sb> <p>
-</td>
-</tr>
-
-<table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
-<td align="center" width="62"><a href="./papers/flame-EG2015.pdf" target="_blank"><img src="./images/flame-EG2015.png" border="none" width="250"></a></td>
-<td><strong><a href="./papers/flame-EG2015.pdf">Target Temperature Driven Dynamic Flame Animation</a></strong><br>
-<p><b> Qiaodong Cui</b>, Zhaohui Wu, Chang Xing, Zhong Zhou, Wei Wu </p>
-<p> Eurographics 2015</p> 
-<p><b> <a href="./papers/flame-EG2015.pdf"> [Paper] <a href="./papers/flame-EG2015.mp4"> [Video] </b></p>
-</td>
-</tr>
-
-<table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
-<td align="center" width="62"><a href="./papers/mesh-2014.pdf" target="_blank"><img src="./images/mesh-2014.png" border="none" width="250"></a></td>
-<td><strong><a href="./papers/mesh-2014.pdf">Automatic Mesh Animation Preview</a></strong><br>
-<p>Yi Li, <b> Qiaodong Cui</b>, Fei Dou and Zhong Zhou </p>
-<p> IEEE International Conference on Multimedia and Expo 2014</p>
-<p><b> <a href="./papers/mesh-2014.pdf"> [Paper] </b></p>
-</td>
-</tr>
-</tbody></table>
 
 <h1>Patents </h1>
 <table width="100%" border="0" cellpadding="10" cellspacing="2"><tbody><tr>
-	<td><strong><a href="https://patents.google.com/patent/US11897203B1/en"> Frequency domain spatial packing for 3D fabrication </a></strong><br>
-	<p> <b>Qiaodong Cui</b>, Wojciech Matusik, Victor Rong</p>
-	<p> US11897203B1, US20240173925A1</p>
+  <td><strong><a href="https://patents.google.com/patent/US11897203B1/en"> Frequency domain spatial packing for 3D fabrication </a></strong><br>
+  <p> <b>Qiaodong Cui</b>, Wojciech Matusik, Victor Rong</p>
+  <p> US11897203B1, US20240173925A1</p>
 </td>
 </tr>
 </tbody></table>
 
-</body></html>
+
+</body>
+</html>

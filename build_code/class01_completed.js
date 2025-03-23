@@ -69,7 +69,7 @@ gl.shaderSource(vertexShader, vsSource);
 gl.compileShader(vertexShader);
 if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
     const errorMsg = gl.getShaderInfoLog(vertexShader);
-    console.error("Shader compilation failed: " + errorMsg);
+    console.error("vertex shader compilation failed: " + errorMsg);
 }
 
 // Create and compile the fragment shader
@@ -78,7 +78,7 @@ gl.shaderSource(fragmentShader, fsSource);
 gl.compileShader(fragmentShader);
 if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
     const errorMsg = gl.getShaderInfoLog(fragmentShader);
-    console.error("Shader compilation failed: " + errorMsg);
+    console.error("fragment shader compilation failed: " + errorMsg);
 }
 
 // Create the shader program

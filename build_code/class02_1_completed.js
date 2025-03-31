@@ -10,7 +10,7 @@ const cubeW = 1.0;
 const cubeH = 1.0;
 
 // Define the vertices of the square
-const vertices = new Float32Array([
+/*const vertices = new Float32Array([
     -cubeL, cubeW, -cubeH,  // Vertex 0: Top Left
     -cubeL, -cubeW, -cubeH, // Vertex 1: Bottom Left
     cubeL, -cubeW, -cubeH,  // Vertex 2: Bottom Right
@@ -47,10 +47,10 @@ const colors = new Float32Array([
     0.0, 1.0, 0.0,  // Color for Vertex 1: Green
     0.0, 0.0, 1.0,  // Color for Vertex 2: Blue
     1.0, 1.0, 0.0   // Color for Vertex 3: Yellow
-]);
+]);*/
 
  //more complicated geometry
-/*const vertices = new Float32Array([
+const vertices = new Float32Array([
     1.225587, 0.000000, 0.000000,
     0.408529, 0.408529, 0.000000,
     0.408529, 0.000000, 0.408529,
@@ -103,13 +103,13 @@ let indices = [
     7, 10, 6,
     9, 8, 6,
     10, 9, 6,
-];*/
+];
 
-/*indices = indices.map(item => item - 1);
+indices = indices.map(item => item - 1);
 let colors = new Float32Array(vertices.length)
 for (let i = 0; i < colors.length; i++) {
     colors[i] = Math.random();
-}*/
+}
 
 // Create a geometry, add the vertices and colors, and define the faces using indices
 const geometry = new THREE.BufferGeometry();

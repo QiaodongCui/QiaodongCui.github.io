@@ -27,11 +27,11 @@ const edgeMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 }); // Edge c
 const cubeEdges = new THREE.LineSegments(edgeGeometry, edgeMaterial);
 scene.add(cubeEdges);
 
-const sphereGeometry  = new THREE.SphereGeometry(0.7, 32, 16);
-const sphereMesh = new THREE.Mesh(sphereGeometry, material);
-scene.add(sphereMesh);
+const sphereGeometry  = new THREE.SphereGeometry(0.2, 32, 16);
 
-sphereMesh.position.x = 1
+const sphereMesh = new THREE.Mesh(sphereGeometry, material);
+sphereMesh.position.x = 5
+
 // use group
 const group = new THREE.Group();
 scene.add(group);
@@ -40,10 +40,15 @@ group.add(cube)
 group.add(cubeEdges)
 group.add(sphereMesh)
 
+/*for (let x = -3; x <= 3; x++)
+    for (let y = -3; y <= 3; y++)
+        for (let z = -3; z <= 3; z++) {
+            const sphereMesh = new THREE.Mesh(sphereGeometry, material);
+            sphereMesh.position.set(x * 0.5, y * 0.5, z * 0.5);
+            group.add(sphereMesh)
+        }*/
+
 //group.scale.set(2, 2, 2)
-//cube.position.set(1, 1, 1)
-/*cube.scale.set(2, 2, 2);
-cubeEdges.scale.set(2, 2, 2);*/
 
 // Animation loop
 function animate() {

@@ -94,7 +94,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.minDistance = 1;
 controls.maxDistance = 5;
 controls.enablePan = true;
-controls.enableDamping = true;
+controls.enableDamping = false;
 
 // Animation loop
 function animate() {

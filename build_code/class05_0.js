@@ -19,7 +19,7 @@ function init() {
 	directionalLight.position.set(1, 1, 0).normalize();
 	scene.add(directionalLight);
 
-	const textureMap = new THREE.TextureLoader().load('textures/uv_grid_opengl.jpg');
+	const textureMap = new THREE.TextureLoader().load('models/bunny_base.png');
 	const textureMaterial = new THREE.MeshStandardMaterial({ map: textureMap });
 	const plainMaterial = new THREE.MeshStandardMaterial({
 		color: 0x0000FF
@@ -39,11 +39,11 @@ function init() {
 		// attach material
 		object.traverse(function (child) {
 			if (child.isMesh) {
-				child.material = plainMaterial; // Apply the material to each mesh
+				child.material = textureMaterial; // Apply the material to each mesh
 			}
 		});
 
-		//object.scale.set(0.05, 0.05, 0.05);
+		object.scale.set(0.05, 0.05, 0.05);
 		// Add the model to the scene
 		scene.add(object);
 		render();

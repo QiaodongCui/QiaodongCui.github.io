@@ -31,11 +31,8 @@ function init() {
 	scene.environment = environmentMap;
 	scene.background = environmentMap;
 
-	const textureMap = new THREE.TextureLoader().load('textures/uv_grid_opengl.jpg');
+	const textureMap = new THREE.TextureLoader().load('models/bunny_base.png');
 	const textureMaterial = new THREE.MeshStandardMaterial({ map: textureMap });
-
-	const bunnyTexture = new THREE.TextureLoader().load('models/Torus_Base.png');
-	const bunnyMaterial = new THREE.MeshStandardMaterial({ map: bunnyTexture });
 
 	// Create a metallic material with a gold tint
 	const metalMaterial = new THREE.MeshStandardMaterial({
@@ -51,7 +48,7 @@ function init() {
 	});
 
 	const glassmaterial = new THREE.MeshPhysicalMaterial({
-		color: 0xffffff, // Adjust the color as needed
+		color: 0xffff00, // Adjust the color as needed
 		metalness: 0, // Glass is not metallic
 		roughness: 0, // Smooth surface
 		transmission: 1, // 0 is fully opaque, 1 is fully transparent (glass-like)
@@ -70,14 +67,12 @@ function init() {
 	}
 	function onError() { }
 
-	loader.load('models/bunny.obj', function (object) {
+	loader.load('models/sphere.obj', function (object) {
 
 		// attach material
 		object.traverse(function (child) {
 			if (child.isMesh) {
-				child.material = metalMaterial; // Apply the material to each mesh
-				child.castShadow = true;
-				child.receiveShadow = true;
+				child.material = glassmaterial; // Apply the material to each mesh
 			}
 		});
 

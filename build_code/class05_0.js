@@ -13,13 +13,13 @@ function init() {
 
 	// scene and light definition.
 	scene = new THREE.Scene();
-	const ambientLight = new THREE.AmbientLight(0xcccccc, 3.2);
+	const ambientLight = new THREE.AmbientLight(0xcccccc, 0.2);
 	scene.add(ambientLight);
-	const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+	const directionalLight = new THREE.DirectionalLight(0xffffff, 1.8);
 	directionalLight.position.set(1, 1, 0).normalize();
 	scene.add(directionalLight);
 
-	const textureMap = new THREE.TextureLoader().load('models/bunny_base.png');
+	const textureMap = new THREE.TextureLoader().load('models/chess_1_base_color.png');
 	const textureMaterial = new THREE.MeshStandardMaterial({ map: textureMap });
 	const plainMaterial = new THREE.MeshStandardMaterial({
 		color: 0x0000FF
@@ -35,7 +35,8 @@ function init() {
 	}
 
 	function onError() { console.log('cant find model'); }
-	loader.load('models/bunny.obj', function (object) {
+
+	loader.load('models/chess_1.obj', function (object) {
 		// attach material
 		object.traverse(function (child) {
 			if (child.isMesh) {

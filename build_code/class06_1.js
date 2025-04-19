@@ -86,7 +86,6 @@ function initScene() {
 	function onProgress(xhr) {
 		if (xhr.lengthComputable) {
 			const percentComplete = xhr.loaded / xhr.total * 100;
-			//console.log('model ' + percentComplete.toFixed(2) + '% downloaded');
 		}
 	}
 	function onError() { }
@@ -115,8 +114,7 @@ function initScene() {
 		scene.add(object);
 		render();
 	}, onProgress, onError);
-
-
+	
 	const geometry = new THREE.BoxGeometry(10, 0.15, 10);
 	material = new THREE.MeshPhongMaterial({
 		color: 0xa0adaf,
@@ -198,9 +196,9 @@ function render() {
 	if (viewDepthMap)
 		renderShadowMapViewers();
 
-	group.rotation.x += 0.25 * delta;
-	group.rotation.y += 2 * delta;
-	group.rotation.z += 1 * delta;
+	//group.rotation.x += 0.25 * delta;
+	//group.rotation.y += 2 * delta;
+	//group.rotation.z += 1 * delta;
 
 	//group.rotation.x = 0.4;
 	//group.rotation.y = 0.45;

@@ -2,6 +2,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.166.0/build/three.m
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.166.0/examples/jsm/controls/OrbitControls.js';
 
 let camera, scene, renderer, controls;
+
 let target;
 let postScene, postCamera, postMaterial;
 
@@ -72,7 +73,8 @@ function setupPost() {
 			uniform float cameraFar;
 			uniform float windowX;
 			uniform float windowY;
-
+			uniform float time;
+			
 			float readDepth( sampler2D depthSampler, vec2 coord ) {
 				float fragCoordZ = texture2D( depthSampler, coord ).x;
 				// convert z buffer value to actual z distance of fragments from the camera 
@@ -80,8 +82,14 @@ function setupPost() {
 				// maps the viewZ to [0,1] based on the orthogonal camera specifiction.
 				return viewZToOrthographicDepth( viewZ, cameraNear, cameraFar );
 			}
-			// image processing.
 			void main() {
+				float depth = readDepth( tDepth, vUv ); //[0, 1]
+				gl_FragColor.rgb = 1.0 - vec3( depth ); //
+				gl_FragColor.a = 1.0;
+			}
+
+			// image processing.
+			/*void main() {
 				float dx = 1.f / windowX;
 				float dy = 1.f / windowY;
 				float depthLeft = readDepth(tDepth, vUv + vec2(-dx, 0));
@@ -90,19 +98,30 @@ function setupPost() {
 				float depthTop = readDepth(tDepth, vUv + vec2(0, -dy));
 				float depthBottom = readDepth(tDepth, vUv + vec2(0, dy));
 				// edge filter.
-				//float depth = depthCurrent*4.f - depthLeft - depthRight - depthTop - depthBottom;
+				float depth = 1.0 - (depthCurrent*4.f - depthLeft - depthRight - depthTop - depthBottom);
 				// blur/
-				float depth = (depthCurrent + depthLeft + depthRight + depthTop + depthBottom) * 0.2f;
-				//if (sin(vUv.x * 30.f) * sin(vUv.y * 30.f) < 0.f)
-				//	depth = depthCurrent;
+				// float depth = (depthCurrent + depthLeft + depthRight + depthTop + depthBottom) * 0.2f;
+				// float depth	= depthCurrent;
+				if (sin(vUv.x * 30.f) * sin(vUv.y * 30.f) < 0.f)
+					depth = depthCurrent;
 				gl_FragColor.rgb = 1.0 - vec3( depth );
 				gl_FragColor.a = 1.0;
-			}
+			}*/
 
+			// fog like.
 			/*void main() {
 				float depth = readDepth( tDepth, vUv ); //[0, 1]
-				gl_FragColor.rgb = 1.0 - vec3( depth );
-				gl_FragColor.a = 1.0;
+				vec3 nearColor = vec3(0.2, 0.2, 0.5); // Dark blue
+				vec3 farColor = vec3(1.0);           // Fog white
+				vec3 color = mix(nearColor, farColor, pow(depth, 1.5));
+				gl_FragColor = vec4(color, 1.0);
+			}*/
+				
+			// Pulsing 			
+			/*void main() {
+				float depth = readDepth( tDepth, vUv ); //[0, 1]
+				float pulse = 0.5 + 0.5 * sin(20.0 * depth + time); // Add uniform float time
+				gl_FragColor = vec4(vec3(pulse * (1.0 - depth)), 1.0);
 			}*/
 			`,
 		uniforms: {
@@ -110,10 +129,11 @@ function setupPost() {
 			cameraFar: { value: camera.far },
 			tDepth: { value: null },
 			windowX: {value: window.innerWidth},
-			windowY: {value: window.innerHeight}
+			windowY: { value: window.innerHeight },
+			time: {value: null}
 		}
 	});
-	const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+	const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 	const postPlane = new THREE.PlaneGeometry(2, 2);
 	const postQuad = new THREE.Mesh(postPlane, postMaterial);
 	postScene = new THREE.Scene();
@@ -123,7 +143,7 @@ function setupPost() {
 function setupScene() {
 	scene = new THREE.Scene();
 	const boxGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
-	const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+	const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
 	// add a bunch of cubes. // [-3, 3] // [0, 3]
 	for (let x = -3; x <= 3; x++)
 		for (let y = -3; y <= 3; y++)
@@ -155,6 +175,7 @@ function animate() {
 
 	// render the texture to the quad
 	postMaterial.uniforms.tDepth.value = target.depthTexture;
+	postMaterial.uniforms.time.value = performance.now() * 0.001; // in seconds
 
 	// disable the rendering target, since now we are rendering to the screen
 	renderer.setRenderTarget(null);

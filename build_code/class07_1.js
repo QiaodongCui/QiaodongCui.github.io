@@ -5,6 +5,10 @@ let camera, scene, renderer, material;
 let controls;
 let pause = true;
 
+//let example = "brownian";
+//let example = "gravity";
+let example = "planetary"
+
 function blackBodyColor(value) {
     // Ensure the value is within [0, 1]
     value = Math.min(Math.max(value, 0), 1);
@@ -53,10 +57,12 @@ class particleSystem {
 
 	constructor(nParticles) {
 		this.m_nParticles = nParticles;
-
-		//this.BrownianWalkInit();
-		//this.gravityFallInit();
-		this.gravityAttractInit();
+		if (example == "brownian")
+			this.BrownianWalkInit();
+		else if (example == "gravity")
+			this.gravityFallInit();
+		else
+			this.gravityAttractInit();
 		// depthTest: false,
 		const sprite = new THREE.TextureLoader().load('textures/disc.png');
 		sprite.colorSpace = THREE.SRGBColorSpace;
@@ -76,9 +82,12 @@ class particleSystem {
 
 	// update particles.
 	update() {
-		//this.BrownianWalk();
-		//this.gravityFall();
-		this.gravityAttract();
+		if (example == "brownian")
+			this.BrownianWalk();
+		else if (example == "gravity")
+			this.gravityFall();
+		else
+			this.gravityAttract();
 		this.m_allParticles.geometry.attributes.position.needsUpdate = true;
 		this.m_allParticles.geometry.attributes.color.needsUpdate = true;
 	}
@@ -89,7 +98,7 @@ class particleSystem {
 		const colors = [];
 		for (let i = 0; i < this.m_nParticles; i++) {
 			const P = this.getRandomVec()
-			vertices.push(0, P[1], P[2]); // x,y,z coordinates
+			vertices.push(P[1], P[1], P[2]); // x,y,z coordinates
 			const C = this.getWhiteColor()
 			colors.push(C[0], C[1], C[2]); // Add the color for this vertex
 		}
@@ -134,9 +143,9 @@ class particleSystem {
 		this.m_velocity = new Float32Array(this.m_nParticles * 3);
 		for (let i = 0; i < this.m_velocity.length; i += 3) {
 			const V = this.getRandomVec()
-			this.m_velocity[i] = V[0];
-			this.m_velocity[i + 1] = 0.5 + V[1];
-			this.m_velocity[i + 2] = V[2];
+			this.m_velocity[i] = V[0]; // x
+			this.m_velocity[i + 1] = 0.5 + V[1]; // y
+			this.m_velocity[i + 2] = V[2]; // z
 		}
 
 		// Create a metallic material with a gold tint
@@ -156,12 +165,13 @@ class particleSystem {
 		const a = -1.0;  // acceleration
 		const dt = 1.0/60.0;  // timestep
 		for (let i = 0; i < this.m_positions.length; i += 3) {
+
 			this.m_velocity[i + 1] += a * dt;
 			this.m_positions[i] += this.m_velocity[i] * dt; // v_x
 			this.m_positions[i + 1] += this.m_velocity[i + 1] * dt; // v_y
 			this.m_positions[i + 2] += this.m_velocity[i + 2] * dt; // v_z
 
-			// compute the distance from the center.
+			// compute the magnitude of velocity of particles.
 			let dist = Math.sqrt(this.m_velocity[i] * this.m_velocity[i] + this.m_velocity[i + 1] * this.m_velocity[i + 1] + this.m_velocity[i + 2] * this.m_velocity[i + 2]);
 			let color = blackBodyColor(dist * 0.5);
 			this.m_color[i] = color[0];
@@ -217,7 +227,7 @@ class particleSystem {
 	}
 
 	gravityAttract() {
-		const G = 0.3;
+		const G = 0.3; // Gm1m2 = 0.3
 		const dt = 1.0/60.0;  // timestep
 		let minSpeed = 100000.0;
 		let maxSpeed = 0;
@@ -225,7 +235,7 @@ class particleSystem {
 			// compute A.
 			let P = new THREE.Vector3(this.m_positions[i], this.m_positions[i + 1], this.m_positions[i + 2]);
 			let r = P.length();
-			P.normalize();
+			P.normalize(); // p.length() = 1
 			let a = - G/(r * r);
 
 			this.m_velocity[i] += a * P.x * dt;

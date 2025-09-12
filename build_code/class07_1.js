@@ -287,6 +287,8 @@ function onKeyDown(event) {
     }
 }
 
+let lastClick = 0;
+
 function init() {
 
 	camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -316,7 +318,16 @@ function init() {
 	// Adding OrbitControls
 	controls = new OrbitControls(camera, renderer.domElement);
 	window.addEventListener('resize', onWindowResize);
-	window.addEventListener('keydown', onKeyDown, false);
+
+	//window.addEventListener('keydown', onKeyDown, false);
+
+	document.addEventListener('pointerdown', function () {
+		const now = Date.now();
+		if (now - lastClick < 300) {  // within 300ms double click/tap
+			pause = !pause;
+		}
+		lastClick = now;
+	});
 }
 
 function onWindowResize() {

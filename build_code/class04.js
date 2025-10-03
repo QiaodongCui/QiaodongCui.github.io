@@ -14,7 +14,7 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// add light.
+// -- add light --.
 const directionLight = new THREE.DirectionalLight(0xffffff, 3.0)
 directionLight.position.set(0, 0, 10)
 scene.add(directionLight)
@@ -23,7 +23,7 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 0.3); // white light at 50
 scene.add(ambientLight)
 
 // load different color textures
-const textureGold = new THREE.TextureLoader().load('textures/silver.png');
+const textureGold = new THREE.TextureLoader().load('textures/red_texture.png');
 const textureUV = new THREE.TextureLoader().load('textures/uv_grid_opengl.jpg');
 
 textureGold.colorSpace = THREE.SRGBColorSpace;
@@ -38,7 +38,7 @@ const boxSegment = 100;
 const boxGeometry = new THREE.BoxGeometry(boxX, boxY, boxZ, boxSegment, boxSegment, boxSegment);
 
 // add cube to the scene
-const cube = new THREE.Mesh(boxGeometry, materialUV);
+const cube = new THREE.Mesh(boxGeometry, materialGold);
 cube.position.set(0, 1, 0);
 scene.add(cube);
 
@@ -61,10 +61,9 @@ scene.add(sphere);
 {
     const texture = new THREE.TextureLoader().load('textures/worldColour.5400x2700.jpg');
     const dispTexture = new THREE.TextureLoader().load('textures/earth_bumpmap.jpg');
-    //const materialDisplacement = new THREE.MeshStandardMaterial({ map: texture, displacementMap: dispTexture, displacementScale: 0.1 });
+    const materialDisplacement = new THREE.MeshStandardMaterial({ map: texture, displacementMap: dispTexture, displacementScale: 0.1 });
     const materialBump = new THREE.MeshStandardMaterial({ map: texture, bumpMap: dispTexture, bumpScale: 100 });
-
-    const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8, 2, 1);
+    const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8, 100, 50);
     const plane = new THREE.Mesh(planeGeometry, materialBump)
     plane.position.set(0, -1, 0)
     scene.add(plane);
@@ -73,7 +72,7 @@ scene.add(sphere);
 var controls = new OrbitControls(camera, renderer.domElement);
 
 // Adjust control settings if needed
-controls.minDistance = 1;
+controls.minDistance = 0.1;
 controls.maxDistance = 10;
 controls.enablePan = true;
 

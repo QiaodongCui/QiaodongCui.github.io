@@ -31,20 +31,20 @@ function init() {
 	scene.environment = environmentMap;
 	scene.background = environmentMap;
 
-	const textureMap = new THREE.TextureLoader().load('models/bunny_base.png');
+	const textureMap = new THREE.TextureLoader().load('models/chess_base_color.png');
 	const textureMaterial = new THREE.MeshStandardMaterial({ map: textureMap });
+
+	const matteMaterial = new THREE.MeshStandardMaterial({
+		color: 0xFFD700, // Gold color
+		metalness: 0.1,
+		roughness: 0.8
+	});
 
 	// Create a metallic material with a gold tint
 	const metalMaterial = new THREE.MeshStandardMaterial({
 		color: 0xFFD700, // Gold color
 		metalness: 0.9, // Fully metallic
 		roughness: 0.1 // A bit of roughness to simulate gold's reflectivity
-	});
-
-	const matteMaterial = new THREE.MeshStandardMaterial({
-		color: 0xFFD700, // Gold color
-		metalness: 0.1,
-		roughness: 0.8
 	});
 
 	const glassmaterial = new THREE.MeshPhysicalMaterial({
@@ -67,7 +67,7 @@ function init() {
 	}
 	function onError() { }
 
-	loader.load('models/sphere.obj', function (object) {
+	loader.load('models/chess.obj', function (object) {
 
 		// attach material
 		object.traverse(function (child) {
@@ -85,7 +85,7 @@ function init() {
 		const maxDimension = Math.max(size.x, size.y, size.z);
 		const scale = 1.0 / maxDimension;
 		object.scale.set(scale, scale, scale);
-		object.position.set(-center.x * scale, -center.y * scale, -center.z * scale)
+		object.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
 
 		// Add the model to the scene
 		scene.add(object);

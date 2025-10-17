@@ -1,7 +1,7 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.166.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.166.0/examples/jsm/controls/OrbitControls.js';
 import { ShadowMapViewer } from 'https://threejs.org/examples/jsm/utils/ShadowMapViewer.js';
-import { OBJLoader } from 'https://threejs.org/examples/jsm/loaders/OBJLoader.js';
+import { GLTFLoader } from 'https://threejs.org/examples/jsm/loaders/GLTFLoader.js';
 
 const viewDepthMap = true;
 
@@ -30,6 +30,7 @@ function initScene() {
 
 	// Lights
 	scene.add(new THREE.AmbientLight(0x404040, 3));
+	const shadowMapRes = 1024;
 
 	spotLight = new THREE.SpotLight(0xffffff, 500);
 	spotLight.name = 'Spot Light';
@@ -39,8 +40,8 @@ function initScene() {
 	spotLight.castShadow = true;
 	spotLight.shadow.camera.near = 8;
 	spotLight.shadow.camera.far = 30;
-	spotLight.shadow.mapSize.width = 1024;
-	spotLight.shadow.mapSize.height = 1024;
+	spotLight.shadow.mapSize.width = shadowMapRes;
+	spotLight.shadow.mapSize.height = shadowMapRes;
 	scene.add(spotLight);
 
 	scene.add(new THREE.CameraHelper(spotLight.shadow.camera));
@@ -55,8 +56,8 @@ function initScene() {
 	dirLight.shadow.camera.left = - 15;
 	dirLight.shadow.camera.top = 15;
 	dirLight.shadow.camera.bottom = - 15;
-	dirLight.shadow.mapSize.width = 1024;
-	dirLight.shadow.mapSize.height = 1024;
+	dirLight.shadow.mapSize.width = shadowMapRes;
+	dirLight.shadow.mapSize.height = shadowMapRes;
 	scene.add(dirLight);
 
 	scene.add(new THREE.CameraHelper(dirLight.shadow.camera));
@@ -68,34 +69,15 @@ function initScene() {
 		specular: 0x222222
 	});
 
-	group = new THREE.Group();
-	const boxGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
-	for (let x = -3; x <= 3; x++)
-		for (let y = -3; y <= 3; y++)
-			for (let z = -3; z <= 3; z++) {
-				const cube = new THREE.Mesh(boxGeometry, material);
-				cube.position.set(x, y, z);
-				cube.castShadow = true;
-				cube.receiveShadow = true;
-				group.add(cube)
-			}
-	// shift everything up by 2
-	group.position.set(0, 5, 0);
-	//scene.add(group)
-	// model
-	function onProgress(xhr) {
-		if (xhr.lengthComputable) {
-			const percentComplete = xhr.loaded / xhr.total * 100;
-		}
-	}
-	function onError() { }
-	const loader = new OBJLoader();
-	loader.load('models/bunny.obj', function (object) {
+	const loader = new GLTFLoader().setPath('models/2024_ford_shelby_super_snake_s650/');
+	loader.load('scene.gltf', async function (gltf) {
+		const object = gltf.scene;
+		// wait until the model can be added to the scene without blocking due to shader compilation
+		await renderer.compileAsync(object, camera, scene);
+
 		object.traverse(function (child) {
 			if (child.isMesh) {
-				child.material = material; // Apply the material to each mesh
 				child.castShadow = true;
-				child.receiveShadow = true;
 			}
 		});
 
@@ -106,15 +88,14 @@ function initScene() {
 		// Scale the model to a unit scale and center it to (0,0,0)
 		const size = boundingBox.getSize(new THREE.Vector3());
 		const maxDimension = Math.max(size.x, size.y, size.z);
-		const scale = 4.0 / maxDimension;
+		const scale = 15.0 / maxDimension;
 		object.scale.set(scale, scale, scale);
-		object.position.set(-center.x * scale, 10 -center.y * scale, -center.z * scale)
+		object.position.set(-center.x * scale, 3 - center.y * scale, -center.z * scale)
 
-		// Add the model to the scene
 		scene.add(object);
 		render();
-	}, onProgress, onError);
-	
+	});
+
 	const geometry = new THREE.BoxGeometry(10, 0.15, 10);
 	material = new THREE.MeshPhongMaterial({
 		color: 0xa0adaf,
@@ -195,16 +176,4 @@ function render() {
 	renderScene();
 	if (viewDepthMap)
 		renderShadowMapViewers();
-
-	//group.rotation.x += 0.25 * delta;
-	//group.rotation.y += 2 * delta;
-	//group.rotation.z += 1 * delta;
-
-	//group.rotation.x = 0.4;
-	//group.rotation.y = 0.45;
-	//group.rotation.z = 0.3;
-
-	//group1.rotation.x += 0.05 * delta;
-	//group1.rotation.y += 0.5 * delta;
-	//group1.rotation.z += 0.25 * delta;
 }
